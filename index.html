@@ -1325,10 +1325,11 @@ table.adm-table .status-tag.paid{background:rgba(31,168,133,.14);color:#1F8985;}
 
 .inv-pool-preview{
   background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:1rem;padding:2rem;
-  display:flex;justify-content:space-between;align-items:flex-end;gap:1.6rem;margin-bottom:1.6rem;position:relative;overflow:hidden;
+  margin-bottom:1.6rem;position:relative;overflow:hidden;
 }
 .inv-preview-big{font-family:'Space Grotesk';font-size:3rem;font-weight:700;color:var(--lime);letter-spacing:-.02em;}
-.inv-preview-spark{width:16rem;height:5rem;flex-shrink:0;}
+.inv-slots-bar{width:100%;height:.7rem;border-radius:1rem;background:rgba(255,255,255,.08);overflow:hidden;margin-top:1.4rem;}
+.inv-slots-bar-fill{height:100%;border-radius:1rem;background:linear-gradient(90deg,var(--lime-deep),var(--lime));}
 .inv-risk-tag-row{display:flex;align-items:center;gap:1rem;}
 
 .inv-amount-display{
@@ -2424,9 +2425,7 @@ table.adm-table td.mono{color:#5A4E7A;}
             <div class="meta-label" data-i18n="inv.slotsRemainingLabel">SLOTS REMAINING</div>
             <div class="inv-preview-big" id="inv-pool-slots-display" style="color:var(--lime);">37<span style="font-size:1.6rem;color:var(--text-faint);"> / 125</span></div>
           </div>
-          <svg class="inv-preview-spark" viewBox="0 0 200 60" preserveAspectRatio="none">
-            <path d="M0,45 C20,42 30,38 50,35 C70,32 80,20 100,18 C120,16 130,28 150,22 C170,16 180,8 200,5" fill="none" stroke="var(--lime)" stroke-width="2.5" stroke-linecap="round"/>
-          </svg>
+          <div class="inv-slots-bar"><div class="inv-slots-bar-fill" id="inv-pool-slots-bar" style="width:70.4%;"></div></div>
         </div>
         <p style="color:var(--text-dim);font-size:1.2rem;margin-bottom:.6rem;" data-i18n="inv.howMuch">How much do you want to invest?</p>
         <div class="inv-amount-display" id="inv-amount-display">$5,000</div>
@@ -3873,6 +3872,8 @@ function invKipForAmount(amount) {
 function invOpenWizard() {
   document.getElementById('inv-wizard-overlay').classList.remove('hidden');
   document.getElementById('inv-pool-slots-display').innerHTML = invPoolSlotsRemaining + '<span style="font-size:1.6rem;color:var(--text-faint);"> / ' + INV_POOL_MAX_SLOTS + '</span>';
+  const filledPct = ((INV_POOL_MAX_SLOTS - invPoolSlotsRemaining) / INV_POOL_MAX_SLOTS) * 100;
+  document.getElementById('inv-pool-slots-bar').style.width = filledPct.toFixed(1) + '%';
   invGoStep(1);
   invSetAmount(5000);
 }
