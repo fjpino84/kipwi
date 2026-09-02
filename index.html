@@ -1374,8 +1374,9 @@ table.adm-table .status-tag.paid{background:rgba(31,168,133,.14);color:#1F8985;}
 .pool-product-card.low:hover{box-shadow:0 1.4rem 3rem rgba(77,232,196,.12);}
 .pool-product-badge{
   position:absolute;top:0;right:2.6rem;padding:.5rem 1.2rem;border-radius:0 0 .7rem .7rem;
-  font-size:1.05rem;font-weight:700;font-family:'Space Grotesk';
+  font-size:1.05rem;font-weight:700;font-family:'Space Grotesk';display:flex;align-items:center;gap:.4rem;
 }
+.pool-product-badge svg{width:12px;height:12px;flex-shrink:0;}
 .pool-product-badge.trending{background:var(--lime);color:var(--ink);}
 .pool-product-badge.popular{background:var(--violet-bright);color:#fff;}
 .pool-product-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1.6rem;margin-bottom:1.6rem;flex-wrap:wrap;}
@@ -1468,6 +1469,29 @@ table.adm-table .status-tag.paid{background:rgba(31,168,133,.14);color:#1F8985;}
 .inv-summary-row .v{font-weight:600;}
 .gas-value{color:var(--text-faint);font-size:1.1rem;transition:color .3s;}
 .gas-value.settled{color:var(--good);font-weight:700;}
+
+/* ===================== SCENARIO CALCULATOR ===================== */
+.inv-calc-panel{margin-bottom:2.2rem;}
+.inv-calc-note{color:var(--text-dim);font-size:1.15rem;margin-bottom:1.8rem;}
+.inv-calc-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:2.6rem;align-items:start;}
+@media(max-width:900px){.inv-calc-grid{grid-template-columns:1fr;}}
+.inv-calc-input-block{background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:1rem;padding:1.8rem 2rem;}
+.inv-calc-participation{display:flex;justify-content:space-between;align-items:center;margin-top:1.6rem;padding-top:1.6rem;border-top:1px solid var(--line);}
+.inv-calc-participation .meta-label{margin-bottom:.4rem;}
+.inv-calc-participation-val{font-family:'Space Grotesk';font-size:1.9rem;font-weight:700;color:var(--lime);}
+.inv-scenario-list{display:flex;flex-direction:column;gap:1rem;}
+.inv-scenario-row{
+  display:flex;justify-content:space-between;align-items:center;gap:1.4rem;
+  background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:1rem;padding:1.5rem 1.8rem;
+}
+.inv-scenario-info{display:flex;flex-direction:column;gap:.3rem;}
+.inv-scenario-title{font-family:'Space Grotesk';font-weight:700;font-size:1.2rem;}
+.inv-scenario-sub{font-size:1rem;color:var(--text-faint);}
+.inv-scenario-amounts{text-align:right;}
+.inv-scenario-dollar{font-family:'JetBrains Mono';font-size:1.7rem;font-weight:700;line-height:1.1;}
+.inv-scenario-pct{font-size:1.05rem;font-weight:600;margin-top:.2rem;}
+.inv-scenario-row.good .inv-scenario-dollar,.inv-scenario-row.good .inv-scenario-pct{color:var(--good);}
+.inv-scenario-row.crit .inv-scenario-dollar,.inv-scenario-row.crit .inv-scenario-pct{color:var(--crit);}
 
 /* ===================== WALLET CONNECT MODAL ===================== */
 .wallet-modal-overlay{position:fixed;inset:0;background:rgba(6,4,14,.75);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:300;padding:2rem;}
@@ -2545,13 +2569,13 @@ table.adm-table td.mono{color:#5A4E7A;}
         <div class="inv-roi-value" style="font-size:5.6rem;">$10,000<span> USDT</span></div>
         <div class="inv-roi-trend">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 15 6-6 6 6"/></svg>
-          <span data-i18n="inv.capitalSub">backs the claims reserve for 125 insured</span>
+          <span data-i18n="inv.capitalSub">backs the claims reserve for 220 insured</span>
         </div>
       </div>
       <div class="inv-roi-mini-grid">
-        <div class="inv-roi-mini"><div class="meta-label" data-i18n="inv.slotsLabel">POOL SLOTS FILLED</div><b id="inv-slots-filled">88<small style="font-size:1.4rem;color:var(--text-faint);">/125</small></b><span data-i18n="inv.slotsSub">37 slots remaining</span></div>
-        <div class="inv-roi-mini"><div class="meta-label" data-i18n="inv.premiumsLabel">PREMIUMS COLLECTED</div><b>$375,000</b><span data-i18n="inv.premiumsSub">this pool cycle</span></div>
-        <div class="inv-roi-mini"><div class="meta-label" data-i18n="inv.reserveLabel">CLAIMS RESERVE</div><b style="color:var(--lime);">$300,000</b><span data-i18n="inv.reserveSub">1:1 with capital invested</span></div>
+        <div class="inv-roi-mini"><div class="meta-label" data-i18n="inv.slotsLabel">POOL SLOTS FILLED</div><b id="inv-slots-filled">220<small style="font-size:1.4rem;color:var(--text-faint);">/220</small></b><span data-i18n="inv.slotsSub">Pool full · closed for new insured</span></div>
+        <div class="inv-roi-mini"><div class="meta-label" data-i18n="inv.premiumsLabel">PREMIUMS COLLECTED</div><b>$396,000</b><span data-i18n="inv.premiumsSub">this pool cycle</span></div>
+        <div class="inv-roi-mini"><div class="meta-label" data-i18n="inv.reserveLabel">CLAIMS RESERVE</div><b style="color:var(--lime);">$316,800</b><span data-i18n="inv.reserveSub">80% of premiums collected</span></div>
         <div class="inv-roi-mini kip-mini">
           <div class="meta-label" data-i18n="inv.kipLabel">YOUR KIP</div>
           <div class="kip-mini-row">
@@ -2565,7 +2589,33 @@ table.adm-table td.mono{color:#5A4E7A;}
         <div class="inv-social-avatars">
           <span style="--a:0deg;"></span><span style="--a:90deg;"></span><span style="--a:180deg;"></span><span style="--a:270deg;"></span>
         </div>
-        <div class="inv-social-text" data-i18n-html="inv.socialProof"><b>88 insured</b> are already covered in this pool</div>
+        <div class="inv-social-text" data-i18n-html="inv.socialProof"><b>220 insured</b> are already covered in this pool</div>
+      </div>
+    </div>
+
+    <div class="panel inv-calc-panel">
+      <div class="section-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span data-i18n="inv.calcTitle">Scenario return calculator</span></div>
+      <p class="inv-calc-note" data-i18n="inv.calcNote">See what you'd recover if 0, 1, or 2 insured pass away in this pool — the hard cap on payouts per pool.</p>
+      <div class="inv-calc-grid">
+        <div class="inv-calc-input-block">
+          <p style="color:var(--text-dim);font-size:1.1rem;margin-bottom:.6rem;" data-i18n="inv.calcAmountLabel">Your investment amount</p>
+          <div class="inv-amount-display" id="inv-calc-amount-display" style="font-size:3.2rem;">$10,000</div>
+          <input type="range" class="inv-slider" id="inv-calc-slider" min="1000" max="150000" step="500" value="10000" oninput="invCalcOnSlide(this.value)">
+          <div class="inv-quick-amounts">
+            <button onclick="invCalcSetAmount(5000)">$5,000</button>
+            <button onclick="invCalcSetAmount(10000)">$10,000</button>
+            <button onclick="invCalcSetAmount(50000)">$50,000</button>
+            <button onclick="invCalcSetAmount(180000)">$180,000</button>
+          </div>
+          <div class="inv-calc-participation">
+            <div>
+              <div class="meta-label" data-i18n="inv.calcParticipationLabel">YOUR POOL PARTICIPATION</div>
+              <span style="font-size:1rem;color:var(--text-faint);" data-i18n="inv.calcParticipationSub">of total investor capital raised for this pool</span>
+            </div>
+            <div class="inv-calc-participation-val" id="inv-calc-participation">1.67%</div>
+          </div>
+        </div>
+        <div class="inv-scenario-list" id="inv-calc-scenarios"></div>
       </div>
     </div>
 
@@ -2600,14 +2650,17 @@ table.adm-table td.mono{color:#5A4E7A;}
         <div class="section-label" data-i18n="inv.currentPoolTitle">Your current Life Pool</div>
         <div class="inv-pool-cards">
           <div class="pool-product-card high">
-            <div class="pool-product-badge trending" data-i18n="inv.poolBadge">🔥 Filling up</div>
+            <div class="pool-product-badge trending">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 13 4 4L19 7"/></svg>
+              <span data-i18n="inv.poolBadge">Full</span>
+            </div>
             <div class="pool-product-top">
               <div>
                 <div class="pool-product-name" data-i18n="inv.poolName">Life Pool #08</div>
-                <div class="pool-product-tag" data-i18n="inv.poolTag">125 insured · 1-year term life · sum insured paid from the claims reserve</div>
+                <div class="pool-product-tag" data-i18n="inv.poolTag">220 insured · 1-year term life · sum insured paid from the claims reserve</div>
               </div>
               <div class="pool-product-apy-block">
-                <div class="pool-product-apy" id="inv-pool-insured-count">88<span>/125</span></div>
+                <div class="pool-product-apy" id="inv-pool-insured-count">220<span>/220</span></div>
                 <div class="pool-product-apy-label" data-i18n="inv.poolInsuredLabel">insured in this pool</div>
               </div>
             </div>
@@ -2618,10 +2671,10 @@ table.adm-table td.mono{color:#5A4E7A;}
             </svg>
             <div class="pool-product-bottom">
               <div class="pool-product-fill-row">
-                <div class="inv-risk-bar"><div class="inv-risk-fill high" style="width:70.4%;"></div></div>
-                <span class="pool-product-fill-label" id="inv-pool-fill-label">70% of the 125 slots filled · 37 remaining</span>
+                <div class="inv-risk-bar"><div class="inv-risk-fill high" style="width:100%;"></div></div>
+                <span class="pool-product-fill-label" id="inv-pool-fill-label" data-i18n="inv.poolFullFillLabel">100% of the 220 slots filled · pool closed to new investors</span>
               </div>
-              <button class="pool-product-btn" onclick="invOpenWizard()" data-i18n="inv.investNow">Invest now →</button>
+              <button class="pool-product-btn" onclick="invOpenWizard()" data-i18n="inv.investNow">Join the next pool →</button>
             </div>
           </div>
 
@@ -2629,7 +2682,7 @@ table.adm-table td.mono{color:#5A4E7A;}
             <div class="pool-product-top">
               <div>
                 <div class="pool-product-name" data-i18n="inv.myPositionName">Your stake in this pool</div>
-                <div class="pool-product-tag" data-i18n="inv.myPositionTag">Capital invested, backing the claims reserve for this pool's 125 insured</div>
+                <div class="pool-product-tag" data-i18n="inv.myPositionTag">Capital invested, backing the claims reserve for this pool's 220 insured</div>
               </div>
               <div class="pool-product-apy-block">
                 <div class="pool-product-apy" style="color:var(--violet-bright);">$10,000</div>
@@ -2638,8 +2691,8 @@ table.adm-table td.mono{color:#5A4E7A;}
             </div>
             <div class="pool-product-bottom">
               <div class="pool-product-fill-row" style="width:100%;">
-                <div class="apy-row" style="border-top:none;padding-top:0;"><span class="meta-label" data-i18n="inv.premiumsCollected">Total premiums collected in this pool</span><span class="mint-val mono">$375,000</span></div>
-                <div class="apy-row"><span class="meta-label" data-i18n="inv.sumInsured">Sum insured per death (claims reserve ÷ 2)</span><span class="mint-val mono">$150,000</span></div>
+                <div class="apy-row" style="border-top:none;padding-top:0;"><span class="meta-label" data-i18n="inv.premiumsCollected">Total premiums collected in this pool</span><span class="mint-val mono">$396,000</span></div>
+                <div class="apy-row"><span class="meta-label" data-i18n="inv.sumInsured">Sum insured per death (fixed coverage)</span><span class="mint-val mono">$300,000</span></div>
               </div>
             </div>
           </div>
@@ -2648,16 +2701,16 @@ table.adm-table td.mono{color:#5A4E7A;}
 
       <div class="panel">
         <div class="section-label" data-i18n="inv.reserveHealthTitle">Claims reserve health</div>
-        <p style="color:var(--text-dim);font-size:1.15rem;margin-bottom:1.6rem;" data-i18n="inv.reserveHealthNote">80% of every premium funds the claims reserve — it always matches 1:1 with capital invested. 10% becomes Kip reserve, 10% goes to the business wallet.</p>
+        <p style="color:var(--text-dim);font-size:1.15rem;margin-bottom:1.6rem;" data-i18n="inv.reserveHealthNote">80% of every premium funds the claims reserve. 10% becomes Kip reserve, 10% goes to Kipwi revenue.</p>
         <div class="inv-risk-tag-row" style="margin-bottom:1rem;">
           <span data-i18n="inv.reserveClaims" style="color:var(--text-dim);font-size:1.15rem;">Claims reserve</span>
-          <span class="mono" style="color:var(--lime);font-weight:700;">$300,000</span>
+          <span class="mono" style="color:var(--lime);font-weight:700;">$316,800</span>
         </div>
         <div class="inv-risk-bar" style="max-width:100%;margin-bottom:1.8rem;"><div class="inv-risk-fill high" style="width:100%;background:var(--lime);"></div></div>
         <div class="donut-legend">
-          <div class="donut-legend-item"><span class="donut-dot" style="background:var(--lime);"></span><span class="donut-legend-name" data-i18n="inv.split1">Claims reserve · 80%</span><span class="donut-legend-val">$300,000</span></div>
-          <div class="donut-legend-item"><span class="donut-dot" style="background:var(--violet-bright);"></span><span class="donut-legend-name" data-i18n="inv.split2">Kip reserve · 10%</span><span class="donut-legend-val">$37,500</span></div>
-          <div class="donut-legend-item"><span class="donut-dot" style="background:var(--gold);"></span><span class="donut-legend-name" data-i18n="inv.split3">Business wallet · 10%</span><span class="donut-legend-val">$37,500</span></div>
+          <div class="donut-legend-item"><span class="donut-dot" style="background:var(--lime);"></span><span class="donut-legend-name" data-i18n="inv.split1">Claims reserve · 80%</span><span class="donut-legend-val">$316,800</span></div>
+          <div class="donut-legend-item"><span class="donut-dot" style="background:var(--violet-bright);"></span><span class="donut-legend-name" data-i18n="inv.split2">Kip reserve · 10%</span><span class="donut-legend-val">$39,600</span></div>
+          <div class="donut-legend-item"><span class="donut-dot" style="background:var(--gold);"></span><span class="donut-legend-name" data-i18n="inv.split3">Kipwi revenue · 10%</span><span class="donut-legend-val">$39,600</span></div>
         </div>
         <div class="apy-row" style="margin-top:1.4rem;">
           <span class="meta-label" data-i18n="inv.deathsSoFar">Deaths this pool cycle</span>
@@ -2701,10 +2754,11 @@ table.adm-table td.mono{color:#5A4E7A;}
       <div class="inv-wizard-head">
         <div>
           <div class="meta-label" data-i18n="inv.wizardEyebrow">INVEST IN</div>
-          <h3 data-i18n="inv.poolName">Life Pool #08</h3>
+          <h3 data-i18n="inv.nextPoolName">Life Pool #09</h3>
         </div>
         <button class="inv-wizard-close" onclick="invCloseWizard()">✕</button>
       </div>
+      <p class="inv-calc-note" style="margin-bottom:1.2rem;" data-i18n="inv.poolFullNotice">Life Pool #08 is full at 220/220 insured and closed to new investors. This invests in Life Pool #09, now open.</p>
       <div class="ij-stepper inv-stepper">
         <div class="ij-stepper-item active" id="inv-wdot-1">
           <div class="ij-stepper-circle" data-icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>'>1</div>
@@ -2721,8 +2775,8 @@ table.adm-table td.mono{color:#5A4E7A;}
       <div id="inv-wstep-1" class="modal-step-body">
         <div class="inv-pool-preview">
           <div class="meta-label" data-i18n="inv.slotsRemainingLabel">SLOTS REMAINING</div>
-          <div class="inv-preview-big" id="inv-pool-slots-display">37 <span style="font-size:1.6rem;color:var(--text-faint);font-weight:600;">/ 125</span></div>
-          <div class="inv-slots-bar"><div class="inv-slots-bar-fill" id="inv-pool-slots-bar" style="width:70.4%;"></div></div>
+          <div class="inv-preview-big" id="inv-pool-slots-display">220 <span style="font-size:1.6rem;color:var(--text-faint);font-weight:600;">/ 220</span></div>
+          <div class="inv-slots-bar"><div class="inv-slots-bar-fill" id="inv-pool-slots-bar" style="width:0%;"></div></div>
         </div>
         <p style="color:var(--text-dim);font-size:1.2rem;margin-bottom:.6rem;" data-i18n="inv.howMuch">How much do you want to invest?</p>
         <div class="inv-amount-display" id="inv-amount-display">$5,000</div>
@@ -2750,10 +2804,10 @@ table.adm-table td.mono{color:#5A4E7A;}
       </div>
 
       <div id="inv-wstep-2" class="modal-step-body hidden">
-        <div class="inv-summary-row"><span class="l" data-i18n="inv.sumPoolLabel">Pool</span><span class="v" data-i18n="inv.poolName">Life Pool #08</span></div>
+        <div class="inv-summary-row"><span class="l" data-i18n="inv.sumPoolLabel">Pool</span><span class="v" data-i18n="inv.nextPoolName">Life Pool #09</span></div>
         <div class="inv-summary-row"><span class="l" data-i18n="inv.sumAmountLabel">Amount</span><span class="v" id="inv-sum-amount">$5,000 USDT</span></div>
         <div class="inv-summary-row"><span class="l" data-i18n="inv.sumKipLabel">Kip issued</span><span class="v" id="inv-sum-kip" style="color:#3d6b10;font-weight:600;">5.00 KIP</span></div>
-        <div class="inv-summary-row"><span class="l" data-i18n="inv.sumSlotsLabel">Slots remaining after</span><span class="v" id="inv-sum-slots">32 / 125</span></div>
+        <div class="inv-summary-row"><span class="l" data-i18n="inv.sumSlotsLabel">Slots remaining after</span><span class="v" id="inv-sum-slots">219 / 220</span></div>
         <div class="inv-summary-row"><span class="l" data-i18n="inv.sumReceiveLabel">You receive</span><span class="v" data-i18n="inv.sumReceiveValue">On-chain investor contract for this pool</span></div>
         <div class="inv-summary-row gas-row">
           <span class="l" data-i18n="gas.label">Gas Fee (red)</span>
@@ -3455,37 +3509,51 @@ const I18N = {
     'inv.heroSubtitle': 'Wallet 0x71C…4f2 · Life Pool #08 · Polygon Mainnet',
     'inv.investCta': '+ Invertir en el pool',
     'inv.capitalLabel': 'TU CAPITAL EN EL POOL ACTUAL',
-    'inv.capitalSub': 'respalda la reserva de siniestros de 125 asegurados',
+    'inv.capitalSub': 'respalda la reserva de siniestros de 220 asegurados',
     'inv.slotsLabel': 'CUPOS DEL POOL OCUPADOS',
-    'inv.slotsSub': '37 cupos disponibles',
+    'inv.slotsSub': 'Pool lleno · cerrado a nuevos asegurados',
     'inv.premiumsLabel': 'PRIMAS RECAUDADAS',
     'inv.premiumsSub': 'en este ciclo del pool',
     'inv.reserveLabel': 'RESERVA DE SINIESTROS',
-    'inv.reserveSub': '1:1 con el capital invertido',
+    'inv.reserveSub': '80% de las primas recaudadas',
     'inv.kipLabel': 'TUS KIP',
     'inv.btcBacked': 'NAV respaldado en BTC',
-    'inv.socialProof': '<b>88 asegurados</b> ya están cubiertos en este pool',
+    'inv.socialProof': '<b>220 asegurados</b> ya están cubiertos en este pool',
     'inv.navChartLabel': 'EVOLUCIÓN DEL NAV DE KIP · RESPALDADO EN BTC',
     'inv.navChartDelta': '+125 USDT de NAV por cada ciclo de pool completado',
     'inv.currentPoolTitle': 'Tu Life Pool actual',
-    'inv.poolBadge': '🔥 Llenándose',
+    'inv.poolBadge': 'Lleno',
     'inv.poolName': 'Life Pool #08',
-    'inv.poolTag': '125 asegurados · vida término a 1 año · suma asegurada pagada desde la reserva de siniestros',
+    'inv.nextPoolName': 'Life Pool #09',
+    'inv.poolFullNotice': 'Life Pool #08 está lleno con 220/220 asegurados y cerrado a nuevos inversores. Esto invierte en Life Pool #09, ahora abierto.',
+    'inv.poolFullFillLabel': '100% de los 220 cupos ocupados · pool cerrado a nuevos inversores',
+    'inv.poolTag': '220 asegurados · vida término a 1 año · suma asegurada pagada desde la reserva de siniestros',
     'inv.poolInsuredLabel': 'asegurados en este pool',
-    'inv.investNow': 'Invertir ahora →',
+    'inv.investNow': 'Unirte al próximo pool →',
     'inv.myPositionName': 'Tu posición en este pool',
-    'inv.myPositionTag': "Capital invertido, respaldando la reserva de siniestros de los 125 asegurados de este pool",
+    'inv.myPositionTag': "Capital invertido, respaldando la reserva de siniestros de los 220 asegurados de este pool",
     'inv.myPositionLabel': 'tu capital en el pool',
     'inv.premiumsCollected': 'Primas totales recaudadas en este pool',
-    'inv.sumInsured': 'Suma asegurada por fallecimiento (reserva ÷ 2)',
+    'inv.sumInsured': 'Suma asegurada por fallecimiento (cobertura fija)',
     'inv.reserveHealthTitle': 'Salud de la reserva de siniestros',
-    'inv.reserveHealthNote': 'El 80% de cada prima financia la reserva de siniestros — siempre iguala 1:1 al capital invertido. El 10% se vuelve reserva Kip, el 10% va a la billetera del negocio.',
+    'inv.reserveHealthNote': 'El 80% de cada prima financia la reserva de siniestros. El 10% se vuelve reserva Kip, el 10% es ingreso de Kipwi.',
     'inv.reserveClaims': 'Reserva de siniestros',
     'inv.split1': 'Reserva de siniestros · 80%',
     'inv.split2': 'Reserva Kip · 10%',
-    'inv.split3': 'Billetera del negocio · 10%',
+    'inv.split3': 'Ingreso Kipwi · 10%',
     'inv.deathsSoFar': 'Fallecimientos en este ciclo',
     'inv.poolCloseNote': 'Este pool cierra al terminar el año o tras 2 fallecimientos, lo que ocurra primero.',
+    'inv.calcTitle': 'Calculadora de retorno por escenario',
+    'inv.calcNote': 'Mira cuánto recuperarías si 0, 1 o 2 asegurados fallecen en este pool — el tope máximo de pagos por pool.',
+    'inv.calcAmountLabel': 'Tu monto de inversión',
+    'inv.calcParticipationLabel': 'TU PARTICIPACIÓN EN EL POOL',
+    'inv.calcParticipationSub': 'del capital total de inversores en este pool',
+    'inv.calcScenario0Title': '0 fallecimientos',
+    'inv.calcScenario0Sub': 'Escenario sin siniestros este ciclo',
+    'inv.calcScenario1Title': '1 fallecimiento',
+    'inv.calcScenario1Sub': 'Un siniestro pagado desde la reserva',
+    'inv.calcScenario2Title': '2 fallecimientos (tope máximo)',
+    'inv.calcScenario2Sub': 'El máximo de siniestros pagables por pool',
     'inv.referralTitle': 'Refiere y gana Kip',
     'inv.referralCode': 'TU CÓDIGO DE REFERIDO',
     'inv.copyCode': 'Copiar código',
@@ -3708,37 +3776,51 @@ const I18N = {
     'inv.heroSubtitle': 'Wallet 0x71C…4f2 · Life Pool #08 · Polygon Mainnet',
     'inv.investCta': '+ Invest in the pool',
     'inv.capitalLabel': 'YOUR CAPITAL IN THE CURRENT POOL',
-    'inv.capitalSub': 'backs the claims reserve for 125 insured',
+    'inv.capitalSub': 'backs the claims reserve for 220 insured',
     'inv.slotsLabel': 'POOL SLOTS FILLED',
-    'inv.slotsSub': '37 slots remaining',
+    'inv.slotsSub': 'Pool full · closed for new insured',
     'inv.premiumsLabel': 'PREMIUMS COLLECTED',
     'inv.premiumsSub': 'this pool cycle',
     'inv.reserveLabel': 'CLAIMS RESERVE',
-    'inv.reserveSub': '1:1 with capital invested',
+    'inv.reserveSub': '80% of premiums collected',
     'inv.kipLabel': 'YOUR KIP',
     'inv.btcBacked': 'BTC-backed NAV',
-    'inv.socialProof': '<b>88 insured</b> are already covered in this pool',
+    'inv.socialProof': '<b>220 insured</b> are already covered in this pool',
     'inv.navChartLabel': 'KIP NAV EVOLUTION · BTC-BACKED',
     'inv.navChartDelta': '+125 USDT NAV per completed pool cycle',
     'inv.currentPoolTitle': 'Your current Life Pool',
-    'inv.poolBadge': '🔥 Filling up',
+    'inv.poolBadge': 'Full',
     'inv.poolName': 'Life Pool #08',
-    'inv.poolTag': '125 insured · 1-year term life · sum insured paid from the claims reserve',
+    'inv.nextPoolName': 'Life Pool #09',
+    'inv.poolFullNotice': 'Life Pool #08 is full at 220/220 insured and closed to new investors. This invests in Life Pool #09, now open.',
+    'inv.poolFullFillLabel': '100% of the 220 slots filled · pool closed to new investors',
+    'inv.poolTag': '220 insured · 1-year term life · sum insured paid from the claims reserve',
     'inv.poolInsuredLabel': 'insured in this pool',
-    'inv.investNow': 'Invest now →',
+    'inv.investNow': 'Join the next pool →',
     'inv.myPositionName': 'Your stake in this pool',
-    'inv.myPositionTag': "Capital invested, backing the claims reserve for this pool's 125 insured",
+    'inv.myPositionTag': "Capital invested, backing the claims reserve for this pool's 220 insured",
     'inv.myPositionLabel': 'your capital in the pool',
     'inv.premiumsCollected': 'Total premiums collected in this pool',
-    'inv.sumInsured': 'Sum insured per death (claims reserve ÷ 2)',
+    'inv.sumInsured': 'Sum insured per death (fixed coverage)',
     'inv.reserveHealthTitle': 'Claims reserve health',
-    'inv.reserveHealthNote': "80% of every premium funds the claims reserve — it always matches 1:1 with capital invested. 10% becomes Kip reserve, 10% goes to the business wallet.",
+    'inv.reserveHealthNote': "80% of every premium funds the claims reserve. 10% becomes Kip reserve, 10% goes to Kipwi revenue.",
     'inv.reserveClaims': 'Claims reserve',
     'inv.split1': 'Claims reserve · 80%',
     'inv.split2': 'Kip reserve · 10%',
-    'inv.split3': 'Business wallet · 10%',
+    'inv.split3': 'Kipwi revenue · 10%',
     'inv.deathsSoFar': 'Deaths this pool cycle',
     'inv.poolCloseNote': 'This pool closes at year-end or after 2 deaths, whichever comes first.',
+    'inv.calcTitle': 'Scenario return calculator',
+    'inv.calcNote': "See what you'd recover if 0, 1, or 2 insured pass away in this pool — the hard cap on payouts per pool.",
+    'inv.calcAmountLabel': 'Your investment amount',
+    'inv.calcParticipationLabel': 'YOUR POOL PARTICIPATION',
+    'inv.calcParticipationSub': 'of total investor capital raised for this pool',
+    'inv.calcScenario0Title': '0 deaths',
+    'inv.calcScenario0Sub': 'No claims paid out this cycle',
+    'inv.calcScenario1Title': '1 death',
+    'inv.calcScenario1Sub': 'One claim paid from the reserve',
+    'inv.calcScenario2Title': '2 deaths (hard cap)',
+    'inv.calcScenario2Sub': 'The maximum claims payable per pool',
     'inv.referralTitle': 'Refer and earn Kip',
     'inv.referralCode': 'YOUR REFERRAL CODE',
     'inv.copyCode': 'Copy code',
@@ -3790,6 +3872,10 @@ function setLang(lang) {
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
   document.documentElement.lang = lang;
   if (typeof renderIjPolicies === 'function') renderIjPolicies();
+  if (typeof invCalcUpdate === 'function' && document.getElementById('inv-calc-scenarios')) {
+    const calcSlider = document.getElementById('inv-calc-slider');
+    invCalcUpdate(calcSlider ? Number(calcSlider.value) : 10000);
+  }
   const wpEn = document.getElementById('wpLinkEn'), wpEs = document.getElementById('wpLinkEs');
   if (wpEn && wpEs) { wpEn.classList.toggle('hidden', lang === 'es'); wpEs.classList.toggle('hidden', lang !== 'es'); }
 }
@@ -4518,18 +4604,33 @@ function ijFinish() {
     insuredName: insuredNameEl ? insuredNameEl.value : '',
     insuredRut: insuredRutEl ? insuredRutEl.value : '',
     poolId: 'P32',
-    poolPosition: (typeof INV_POOL_SLOTS_FILLED !== 'undefined' ? INV_POOL_SLOTS_FILLED : 88) + 1,
+    poolPosition: 89,
     beneficiaries: ijBeneficiaries.map(b => ({ name: b.name, rut: b.rut, relationship: b.relationship, share: b.share })),
   });
   renderIjPolicies();
 }
 
 // ===== Investor journey wizard =====
-// Single product: the current Life Pool (up to 125 insured). Kip issuance follows
-// the 1 Kip per 1,000 USDT invested rule from the pool model.
-const INV_POOL_MAX_SLOTS = 125;
-const INV_POOL_SLOTS_FILLED = 88;
-let invPoolSlotsRemaining = INV_POOL_MAX_SLOTS - INV_POOL_SLOTS_FILLED;
+// Life Pool #08 (the pool shown on the dashboard) is full at 220/220 insured.
+// The wizard now opens investment into Life Pool #09, the next pool, which starts empty.
+// Kip issuance follows the 1 Kip per 1,000 USDT invested rule from the pool model.
+const INV_POOL_MAX_SLOTS = 220;
+const INV_POOL_SLOTS_FILLED = 220;
+const INV_NEXT_POOL_MAX_SLOTS = 220;
+const INV_NEXT_POOL_SLOTS_FILLED = 0;
+let invPoolSlotsRemaining = INV_NEXT_POOL_MAX_SLOTS - INV_NEXT_POOL_SLOTS_FILLED;
+
+// Real pool economics (Life Pool #08), from the investor's spreadsheet:
+// 220 insured x $1,800/yr premium = $396,000 total premiums.
+// Split 80/10/10: claims reserve / Kip reserve / Kipwi revenue.
+const INV_TOTAL_PREMIUMS = 396000;
+const INV_CLAIMS_RESERVE = 316800;
+const INV_KIP_RESERVE = 39600;
+const INV_KIPWI_REVENUE = 39600;
+const INV_COVERAGE_PER_DEATH = 300000; // fixed sum insured per deceased, not reserve/2
+const INV_POOL_MAX_DEATHS = 2;
+// Total capital raised from ALL investors backing this pool's risk (separate from premiums).
+const INV_TOTAL_POOL_CAPITAL = 600000;
 
 function invKipForAmount(amount) {
   return amount / 1000;
@@ -4537,8 +4638,8 @@ function invKipForAmount(amount) {
 
 function invOpenWizard() {
   document.getElementById('inv-wizard-overlay').classList.remove('hidden');
-  document.getElementById('inv-pool-slots-display').innerHTML = invPoolSlotsRemaining + '<span style="font-size:1.6rem;color:var(--text-faint);"> / ' + INV_POOL_MAX_SLOTS + '</span>';
-  const filledPct = ((INV_POOL_MAX_SLOTS - invPoolSlotsRemaining) / INV_POOL_MAX_SLOTS) * 100;
+  document.getElementById('inv-pool-slots-display').innerHTML = invPoolSlotsRemaining + '<span style="font-size:1.6rem;color:var(--text-faint);"> / ' + INV_NEXT_POOL_MAX_SLOTS + '</span>';
+  const filledPct = ((INV_NEXT_POOL_MAX_SLOTS - invPoolSlotsRemaining) / INV_NEXT_POOL_MAX_SLOTS) * 100;
   document.getElementById('inv-pool-slots-bar').style.width = filledPct.toFixed(1) + '%';
   invGoStep(1);
   invSetAmount(5000);
@@ -4561,7 +4662,7 @@ function invGoStep(n) {
     const kip = invKipForAmount(amount);
     document.getElementById('inv-sum-amount').textContent = '$' + amount.toLocaleString() + ' USDT';
     document.getElementById('inv-sum-kip').textContent = kip.toFixed(2) + ' KIP';
-    document.getElementById('inv-sum-slots').textContent = Math.max(invPoolSlotsRemaining - 1, 0) + ' / ' + INV_POOL_MAX_SLOTS;
+    document.getElementById('inv-sum-slots').textContent = Math.max(invPoolSlotsRemaining - 1, 0) + ' / ' + INV_NEXT_POOL_MAX_SLOTS;
     simulateGasFee('inv-gas-value');
   }
 }
@@ -4583,6 +4684,70 @@ function invFinish() {
   if (!walletConnected) { requireWalletThen(invFinish); return; }
   [1, 2].forEach(i => document.getElementById(`inv-wstep-${i}`).classList.add('hidden'));
   document.getElementById('inv-wstep-success').classList.remove('hidden');
+}
+
+// ===== Investor: scenario return calculator =====
+// Return(N) = (ClaimsReserve - N * CoveragePerDeath) * investorParticipationPct
+// N = number of deaths in the pool this cycle (0, 1 or 2 - the hard cap per pool).
+function invCalcReturn(investment, deaths) {
+  const participationPct = investment / INV_TOTAL_POOL_CAPITAL;
+  const dollars = (INV_CLAIMS_RESERVE - deaths * INV_COVERAGE_PER_DEATH) * participationPct;
+  return { dollars, participationPct };
+}
+
+function invCalcRenderScenarios(amount) {
+  const t = I18N[currentLang];
+  const container = document.getElementById('inv-calc-scenarios');
+  if (!container) return;
+  const scenarioLabels = [
+    { n: 0, title: t['inv.calcScenario0Title'], sub: t['inv.calcScenario0Sub'] },
+    { n: 1, title: t['inv.calcScenario1Title'], sub: t['inv.calcScenario1Sub'] },
+    { n: 2, title: t['inv.calcScenario2Title'], sub: t['inv.calcScenario2Sub'] },
+  ];
+  container.innerHTML = scenarioLabels.map(s => {
+    const { dollars } = invCalcReturn(amount, s.n);
+    const pct = amount > 0 ? (dollars / amount) * 100 : 0;
+    const sign = dollars >= 0 ? '+' : '-';
+    const rowClass = dollars >= 0 ? 'good' : 'crit';
+    const dollarsAbs = Math.abs(dollars);
+    const pctAbs = Math.abs(pct);
+    return `
+      <div class="inv-scenario-row ${rowClass}">
+        <div class="inv-scenario-info">
+          <div class="inv-scenario-title">${s.title}</div>
+          <div class="inv-scenario-sub">${s.sub}</div>
+        </div>
+        <div class="inv-scenario-amounts">
+          <div class="inv-scenario-dollar">${sign}$${dollarsAbs.toLocaleString(undefined, { maximumFractionDigits: 0 })}</div>
+          <div class="inv-scenario-pct">${sign}${pctAbs.toFixed(1)}%</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function invCalcUpdate(amount) {
+  const display = document.getElementById('inv-calc-amount-display');
+  if (display) display.textContent = '$' + Math.round(amount).toLocaleString();
+  const participationEl = document.getElementById('inv-calc-participation');
+  if (participationEl) {
+    const pct = (amount / INV_TOTAL_POOL_CAPITAL) * 100;
+    participationEl.textContent = pct.toFixed(2) + '%';
+  }
+  invCalcRenderScenarios(amount);
+}
+
+function invCalcOnSlide(v) {
+  const amount = Number(v);
+  const slider = document.getElementById('inv-calc-slider');
+  const pct = ((amount - slider.min) / (slider.max - slider.min)) * 100;
+  slider.style.setProperty('--pct', pct + '%');
+  invCalcUpdate(amount);
+}
+
+function invCalcSetAmount(v) {
+  const slider = document.getElementById('inv-calc-slider');
+  if (slider) slider.value = v;
+  invCalcOnSlide(v);
 }
 // ===== Investor: referral code copy =====
 function invCopyReferralCode() {
@@ -4698,6 +4863,7 @@ function updateConnectButtons() {
   const invEmpty = document.getElementById('inv-empty-state');
   const invConnected = document.getElementById('inv-connected-view');
   if (invEmpty && invConnected) { invEmpty.classList.add('hidden'); invConnected.classList.remove('hidden'); }
+  if (typeof invCalcUpdate === 'function') invCalcUpdate(10000);
   renderIjPolicies();
 }
 
