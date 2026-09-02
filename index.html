@@ -1487,6 +1487,7 @@ table.adm-table .status-tag.paid{background:rgba(31,168,133,.14);color:#1F8985;}
 .inv-scenario-info{display:flex;flex-direction:column;gap:.3rem;}
 .inv-scenario-title{font-family:'Space Grotesk';font-weight:700;font-size:1.2rem;}
 .inv-scenario-sub{font-size:1rem;color:var(--text-faint);}
+.inv-scenario-prob{font-size:1rem;color:var(--violet-bright);margin-top:.3rem;font-family:'JetBrains Mono';}
 .inv-scenario-amounts{text-align:right;}
 .inv-scenario-dollar{font-family:'JetBrains Mono';font-size:1.7rem;font-weight:700;line-height:1.1;}
 .inv-scenario-pct{font-size:1.05rem;font-weight:600;margin-top:.2rem;}
@@ -2338,15 +2339,15 @@ table.adm-table td.mono{color:#5A4E7A;}
         <div class="ij-plan-grid">
           <div class="ij-plan-card" onclick="ijSelectPlan(this,'250K')">
             <b>250K</b><span data-i18n="ij.plan250Sub">Cobertura básica</span>
-            <div class="ij-plan-price">60 USDT/mes</div>
+            <div class="ij-plan-price">60 USDT<span data-i18n="ij.perMonth">/mes</span></div>
           </div>
           <div class="ij-plan-card selected" onclick="ijSelectPlan(this,'500K')">
             <b>500K</b><span data-i18n="ij.plan500Sub">Cobertura recomendada</span>
-            <div class="ij-plan-price">120 USDT/mes</div>
+            <div class="ij-plan-price">120 USDT<span data-i18n="ij.perMonth">/mes</span></div>
           </div>
           <div class="ij-plan-card" onclick="ijSelectPlan(this,'1M')">
             <b>1M</b><span data-i18n="ij.plan1mSub">Cobertura amplia</span>
-            <div class="ij-plan-price">240 USDT/mes</div>
+            <div class="ij-plan-price">240 USDT<span data-i18n="ij.perMonth">/mes</span></div>
           </div>
         </div>
         <div class="ij-section-label" data-i18n="ij.yourDetails">Tus datos</div>
@@ -3554,6 +3555,8 @@ const I18N = {
     'inv.calcScenario1Sub': 'Un siniestro pagado desde la reserva',
     'inv.calcScenario2Title': '2 siniestros (tope máximo)',
     'inv.calcScenario2Sub': 'El máximo de siniestros pagables por pool',
+    'inv.calcProbExact': 'Probabilidad estimada: {pct}% (tasa de mortalidad 7‰)',
+    'inv.calcProbAtLeast': 'Probabilidad estimada: {pct}% (2 o más, tasa de mortalidad 7‰)',
     'inv.referralTitle': 'Refiere y gana Kip',
     'inv.referralCode': 'TU CÓDIGO DE REFERIDO',
     'inv.copyCode': 'Copiar código',
@@ -3821,6 +3824,8 @@ const I18N = {
     'inv.calcScenario1Sub': 'One claim paid from the reserve',
     'inv.calcScenario2Title': '2 claims (hard cap)',
     'inv.calcScenario2Sub': 'The maximum claims payable per pool',
+    'inv.calcProbExact': 'Estimated probability: {pct}% (7‰ mortality rate)',
+    'inv.calcProbAtLeast': 'Estimated probability: {pct}% (2 or more, 7‰ mortality rate)',
     'inv.referralTitle': 'Refer and earn Kip',
     'inv.referralCode': 'YOUR REFERRAL CODE',
     'inv.copyCode': 'Copy code',
@@ -4631,6 +4636,25 @@ const INV_COVERAGE_PER_DEATH = 300000; // fixed sum insured per deceased, not re
 const INV_POOL_MAX_DEATHS = 2;
 // Total capital raised from ALL investors backing this pool's risk (separate from premiums).
 const INV_TOTAL_POOL_CAPITAL = 600000;
+// Mortality assumption used to estimate claim likelihood per pool cycle.
+const INV_MORTALITY_RATE = 0.007; // 7 per mille
+const INV_POOL_LAMBDA = INV_POOL_MAX_SLOTS * INV_MORTALITY_RATE; // expected claims per pool
+
+function invFactorial(n) {
+  let r = 1;
+  for (let i = 2; i <= n; i++) r *= i;
+  return r;
+}
+function invPoissonPMF(k, lambda) {
+  return (Math.exp(-lambda) * Math.pow(lambda, k)) / invFactorial(k);
+}
+function invScenarioProbability(n) {
+  // n = 0 or 1: exact Poisson probability of exactly n claims.
+  // n = 2: probability of 2 OR MORE claims (the hard-cap scenario), i.e. 1 - P(0) - P(1).
+  if (n === 0) return invPoissonPMF(0, INV_POOL_LAMBDA);
+  if (n === 1) return invPoissonPMF(1, INV_POOL_LAMBDA);
+  return 1 - invPoissonPMF(0, INV_POOL_LAMBDA) - invPoissonPMF(1, INV_POOL_LAMBDA);
+}
 
 function invKipForAmount(amount) {
   return amount / 1000;
@@ -4711,11 +4735,14 @@ function invCalcRenderScenarios(amount) {
     const rowClass = dollars >= 0 ? 'good' : 'crit';
     const dollarsAbs = Math.abs(dollars);
     const pctAbs = Math.abs(pct);
+    const probability = invScenarioProbability(s.n) * 100;
+    const probLabel = s.n === 2 ? t['inv.calcProbAtLeast'] : t['inv.calcProbExact'];
     return `
       <div class="inv-scenario-row ${rowClass}">
         <div class="inv-scenario-info">
           <div class="inv-scenario-title">${s.title}</div>
           <div class="inv-scenario-sub">${s.sub}</div>
+          <div class="inv-scenario-prob">${tf(probLabel, { pct: probability.toFixed(1) })}</div>
         </div>
         <div class="inv-scenario-amounts">
           <div class="inv-scenario-dollar">${sign}$${dollarsAbs.toLocaleString(undefined, { maximumFractionDigits: 0 })}</div>
