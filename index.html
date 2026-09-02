@@ -1078,6 +1078,12 @@ table.adm-table .status-tag.paid{background:rgba(31,168,133,.14);color:#1F8985;}
 .ij-policy-badge.paid::before{background:#1F8985;}
 .ij-policy-name{font-family:'Space Grotesk';font-size:2.2rem;font-weight:700;margin-top:.6rem;}
 .ij-policy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;}
+.ij-pool-note{
+  display:flex;align-items:center;gap:.8rem;background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.18);
+  border-radius:.8rem;padding:1.1rem 1.4rem;margin-top:1.6rem;font-size:1.15rem;color:var(--text-dim-l);line-height:1.4;
+}
+.ij-pool-note svg{width:18px;height:18px;flex-shrink:0;color:#8B6FE8;}
+.ij-pool-note b{color:var(--text-l);font-weight:700;}
 .ij-policy-stat b{display:block;font-family:'Space Grotesk';font-size:1.9rem;font-weight:700;margin-bottom:.3rem;}
 .ij-policy-stat span{font-size:1.1rem;color:var(--text-dim-l);}
 
@@ -1157,6 +1163,56 @@ table.adm-table .status-tag.paid{background:rgba(31,168,133,.14);color:#1F8985;}
   font-family:'Sora';font-size:1.3rem;background:var(--bg-l);color:var(--text-l);
 }
 .ij-field input:focus,.ij-field select:focus{outline:none;border-color:var(--lime-deep);}
+.ij-field-rut{position:relative;}
+.ij-field-rut input{padding-right:4.2rem;}
+.ij-rut-status{position:absolute;right:1.3rem;top:3.9rem;width:2.2rem;height:2.2rem;display:none;align-items:center;justify-content:center;}
+.ij-rut-status svg{width:2.2rem;height:2.2rem;}
+.ij-field.rut-valid input{border-color:var(--good);}
+.ij-field.rut-valid .ij-rut-status-ok{display:flex;color:var(--good);}
+.ij-field.rut-invalid input{border-color:var(--crit);}
+.ij-field.rut-invalid .ij-rut-status-bad{display:flex;color:var(--crit);}
+.ij-field-error{display:none;font-size:1.05rem;color:var(--crit);margin-top:.6rem;font-weight:600;}
+.ij-field.rut-invalid .ij-field-error{display:block;}
+.ij-subnote{font-size:1.05rem;color:var(--text-dim-l);margin:-.8rem 0 1.8rem;line-height:1.55;background:rgba(20,30,10,.04);border:1px solid var(--line-l);border-radius:1rem;padding:1.4rem 1.6rem;}
+.ij-section-label{font-family:'Space Grotesk';font-size:1.3rem;font-weight:700;margin:2.4rem 0 1.2rem;color:#2E1A5C;}
+.ij-section-label:first-of-type{margin-top:0;}
+.ij-ben-row{border:1.5px solid var(--line-l);border-radius:1.2rem;padding:1.8rem 1.8rem 1rem;margin-bottom:1.6rem;position:relative;background:var(--bg-l);}
+.ij-ben-row-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem;}
+.ij-ben-row-title{font-family:'Space Grotesk';font-weight:700;font-size:1.2rem;color:#2E1A5C;}
+.ij-ben-remove{background:none;border:none;cursor:pointer;color:var(--crit);padding:.4rem;display:flex;align-items:center;justify-content:center;border-radius:.6rem;transition:background .15s;}
+.ij-ben-remove:hover{background:rgba(255,107,139,.12);}
+.ij-ben-remove svg{width:1.9rem;height:1.9rem;}
+.ij-ben-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 1.6rem;}
+.ij-ben-grid .ij-field{grid-column:span 1;}
+.ij-ben-grid .ij-field.full{grid-column:1 / -1;}
+.ij-add-ben-btn{
+  width:100%;padding:1.2rem;border:1.5px dashed var(--line-l);border-radius:1rem;background:transparent;
+  color:#4a8f16;font-family:'Space Grotesk';font-weight:700;font-size:1.2rem;cursor:pointer;transition:all .15s;margin-bottom:1.8rem;
+}
+.ij-add-ben-btn:hover{border-color:var(--lime-deep);background:rgba(196,255,77,.06);}
+.ij-ben-total-row{
+  display:flex;align-items:center;justify-content:space-between;padding:1.3rem 1.6rem;border-radius:1rem;
+  background:rgba(20,30,10,.04);border:1.5px solid var(--line-l);font-family:'Space Grotesk';font-weight:700;font-size:1.25rem;margin-bottom:.6rem;
+}
+.ij-ben-total-row.ok{border-color:var(--good);color:#1c7a5e;background:rgba(77,232,196,.1);}
+.ij-ben-total-row.bad{border-color:var(--crit);color:#b3324c;background:rgba(255,107,139,.08);}
+.ij-ben-total-note{font-size:1.05rem;color:var(--text-dim-l);margin-bottom:2rem;}
+.ij-dps-q{border:1.5px solid var(--line-l);border-radius:1.2rem;padding:1.6rem 1.8rem;margin-bottom:1.4rem;display:flex;align-items:center;justify-content:space-between;gap:1.6rem;background:var(--bg-l);}
+.ij-dps-q p{font-size:1.2rem;font-weight:600;line-height:1.4;}
+.ij-dps-toggle{display:flex;gap:.6rem;flex-shrink:0;}
+.ij-dps-toggle button{
+  padding:.9rem 1.6rem;border:1.5px solid var(--line-l);border-radius:.8rem;background:var(--panel-l);
+  font-family:'Space Grotesk';font-weight:700;font-size:1.1rem;cursor:pointer;color:var(--text-dim-l);transition:all .15s;
+}
+.ij-dps-toggle button.active{border-color:var(--lime-deep);background:rgba(196,255,77,.15);color:#3d6b10;}
+.ij-dps-declare{display:flex;align-items:flex-start;gap:1rem;padding:1.6rem;border:1.5px solid var(--line-l);border-radius:1.2rem;margin-top:2.2rem;background:rgba(20,30,10,.04);}
+.ij-dps-declare input[type=checkbox]{width:1.9rem;height:1.9rem;flex-shrink:0;margin-top:.1rem;accent-color:var(--lime-deep);}
+.ij-dps-declare label{font-size:1.15rem;font-weight:600;line-height:1.5;}
+.ij-sum-ben-line{font-size:1.15rem;padding:.5rem 0;color:var(--text-dim-l);}
+.ij-sum-ben-line b{color:var(--text-l);font-weight:700;}
+@media(max-width:700px){
+  .ij-ben-grid{grid-template-columns:1fr;}
+}
 .ij-wallet-slot{width:100%;}
 .ij-wallet-connect-btn{
   width:100%;padding:1.2rem 1.4rem;border:1.5px dashed var(--line-l);border-radius:1rem;
@@ -1170,6 +1226,12 @@ table.adm-table .status-tag.paid{background:rgba(31,168,133,.14);color:#1F8985;}
   font-family:'JetBrains Mono';font-size:1.2rem;color:#3d6b10;font-weight:600;
 }
 .ij-wallet-connected .wallet-dot{width:.8rem;height:.8rem;border-radius:50%;background:var(--good);box-shadow:0 0 .5rem var(--good);flex-shrink:0;}
+.ij-wallet-connected .wallet-addr{flex:1;}
+.ij-wallet-change-btn{
+  flex-shrink:0;border:none;background:transparent;color:var(--text-dim-l);font-family:'Sora';font-weight:600;
+  font-size:1.05rem;cursor:pointer;text-decoration:underline;padding:.3rem;
+}
+.ij-wallet-change-btn:hover{color:#3d6b10;}
 .ij-plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-bottom:2rem;}
 .ij-plan-card{
   border:2px solid var(--line-l);border-radius:1.4rem;padding:2rem 1.6rem;text-align:center;cursor:pointer;transition:all .15s;
@@ -1186,6 +1248,7 @@ table.adm-table .status-tag.paid{background:rgba(31,168,133,.14);color:#1F8985;}
 }
 .ij-btn-row .ij-btn-primary,.ij-btn-row .ij-btn-ghost{flex:1;width:auto;}
 .ij-btn-primary:hover{background:var(--lime-deep);}
+.ij-btn-primary:disabled{opacity:.5;cursor:not-allowed;background:var(--lime);}
 .ij-btn-ghost{
   padding:1.35rem 2rem;background:transparent;color:var(--text-dim-l);border:1.5px solid var(--line-l);border-radius:1rem;
   font-family:'Space Grotesk';font-weight:600;font-size:1.3rem;cursor:pointer;
@@ -1455,6 +1518,53 @@ table.adm-table .status-tag.paid{background:rgba(31,168,133,.14);color:#1F8985;}
   .inv-nav{padding:1.4rem 1.6rem;}
   .inv-wrap{padding:1.6rem;}
   .inv-kpi-grid{grid-template-columns:1fr;}
+}
+
+/* ===================== POLICY DETAIL MODAL (Insured) ===================== */
+.policy-detail-overlay{position:fixed;inset:0;background:rgba(6,4,14,.75);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:300;padding:2rem;}
+.policy-detail-card{
+  background:linear-gradient(160deg,var(--panel) 0%,#1F1440 100%);border:1.5px solid var(--line-lime);border-radius:1.4rem;
+  padding:3rem;width:60rem;max-width:100%;max-height:88vh;
+  display:flex;flex-direction:column;position:relative;box-shadow:0 2rem 6rem rgba(0,0,0,.5);
+}
+.policy-detail-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.6rem;}
+.policy-detail-head h3{font-family:'Space Grotesk';font-size:2.1rem;font-weight:700;color:#fff;}
+.policy-detail-tagline{color:var(--lime);font-family:'Space Grotesk';font-weight:700;font-size:1.4rem;margin-bottom:2rem;}
+.policy-detail-body{flex:1;overflow-y:auto;padding-right:.6rem;}
+.pd-section{margin-bottom:2.2rem;}
+.pd-section-title{font-family:'Space Grotesk';font-size:1.15rem;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:1rem;}
+.pd-row{display:flex;justify-content:space-between;gap:1.6rem;padding:.8rem 0;border-bottom:1px solid var(--line);font-size:1.22rem;}
+.pd-row:last-child{border-bottom:none;}
+.pd-row .l{color:var(--text-dim);flex-shrink:0;}
+.pd-row .v{font-family:'JetBrains Mono';color:#fff;text-align:right;}
+.pd-ben-card{background:rgba(0,0,0,.2);border:1px solid var(--line);border-radius:.9rem;padding:1.4rem 1.6rem;margin-bottom:1rem;}
+.pd-ben-card:last-child{margin-bottom:0;}
+.pd-ben-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.4rem;}
+.pd-ben-top .name{font-family:'Space Grotesk';font-weight:700;font-size:1.28rem;color:#fff;}
+.pd-ben-top .share{font-family:'JetBrains Mono';color:var(--lime-bright);font-weight:700;font-size:1.3rem;}
+.pd-ben-meta{font-size:1.1rem;color:var(--text-dim);}
+.pd-how-steps{display:flex;flex-direction:column;gap:1.2rem;}
+.pd-how-step{display:flex;gap:1.2rem;align-items:flex-start;}
+.pd-how-num{
+  flex-shrink:0;width:2.8rem;height:2.8rem;border-radius:50%;background:rgba(196,255,77,.1);border:1px solid var(--line-lime);
+  color:var(--lime);font-family:'JetBrains Mono';font-weight:700;font-size:1.3rem;display:flex;align-items:center;justify-content:center;
+}
+.pd-how-step p{margin:0;padding-top:.3rem;font-size:1.22rem;color:var(--text);line-height:1.5;}
+.pd-promise{
+  background:rgba(196,255,77,.08);border:1px solid var(--line-lime);border-radius:1rem;padding:1.6rem 2rem;text-align:center;
+  font-family:'Space Grotesk';font-size:1.5rem;font-weight:700;color:var(--lime-bright);margin-bottom:2.2rem;
+}
+.pd-exclusion{
+  background:rgba(226,138,131,.08);border:1px solid rgba(226,138,131,.3);border-radius:1rem;padding:1.6rem 1.8rem;
+}
+.pd-exclusion-title{display:flex;align-items:center;gap:.8rem;font-family:'Space Grotesk';font-weight:700;font-size:1.25rem;color:var(--crit);margin-bottom:.6rem;}
+.pd-exclusion-title svg{width:19px;height:19px;flex-shrink:0;}
+.pd-exclusion p{margin:0;font-size:1.18rem;color:var(--text-dim);line-height:1.55;}
+.pd-close-btn{margin-top:2rem;}
+@media(max-width:640px){
+  .policy-detail-card{padding:2rem;max-height:92vh;}
+  .pd-row{flex-direction:column;gap:.3rem;}
+  .pd-row .v{text-align:left;}
 }
 
 /* ===================== CLAIM SIMULATION MODAL (Admin) ===================== */
@@ -2177,44 +2287,127 @@ table.adm-table td.mono{color:#5A4E7A;}
           <div class="ij-stepper-label" data-i18n="ij.step1">Cobertura</div>
         </div>
         <div class="ij-stepper-item" id="ij-dot-2">
-          <div class="ij-stepper-circle" data-icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>'>2</div>
+          <div class="ij-stepper-circle" data-icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'>2</div>
           <div class="ij-stepper-line"></div>
-          <div class="ij-stepper-label" data-i18n="ij.step2">Tus datos</div>
+          <div class="ij-stepper-label" data-i18n="ij.step2">Beneficiarios</div>
         </div>
         <div class="ij-stepper-item" id="ij-dot-3">
-          <div class="ij-stepper-circle" data-icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 13 4 4L19 7"/></svg>'>3</div>
+          <div class="ij-stepper-circle" data-icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>'>3</div>
           <div class="ij-stepper-line"></div>
-          <div class="ij-stepper-label" data-i18n="ij.step3">Confirmar</div>
+          <div class="ij-stepper-label" data-i18n="ij.step3">Salud</div>
+        </div>
+        <div class="ij-stepper-item" id="ij-dot-4">
+          <div class="ij-stepper-circle" data-icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>'>4</div>
+          <div class="ij-stepper-line"></div>
+          <div class="ij-stepper-label" data-i18n="ij.step4">Wallet</div>
+        </div>
+        <div class="ij-stepper-item" id="ij-dot-5">
+          <div class="ij-stepper-circle" data-icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 13 4 4L19 7"/></svg>'>5</div>
+          <div class="ij-stepper-line"></div>
+          <div class="ij-stepper-label" data-i18n="ij.step5">Confirmar</div>
         </div>
       </div>
 
       <div class="ij-card" id="ij-step-1">
-        <h2>Elige tu cobertura</h2>
-        <p class="ij-sub">Paso 1 de 3 — sin compromiso, puedes cambiarlo después.</p>
+        <h2 data-i18n="ij.step1Title">Elige tu cobertura</h2>
+        <p class="ij-sub"><span data-i18n="ij.stepOf">Paso</span> 1 <span data-i18n="ij.stepOfMid">de</span> 5 — <span data-i18n="ij.step1Sub">sin compromiso, puedes cambiarlo después.</span></p>
         <div class="ij-plan-grid">
           <div class="ij-plan-card" onclick="ijSelectPlan(this,'250K')">
-            <b>250K</b><span>Cobertura básica</span>
+            <b>250K</b><span data-i18n="ij.plan250Sub">Cobertura básica</span>
             <div class="ij-plan-price">60 USDT/mes</div>
           </div>
           <div class="ij-plan-card selected" onclick="ijSelectPlan(this,'500K')">
-            <b>500K</b><span>Cobertura recomendada</span>
+            <b>500K</b><span data-i18n="ij.plan500Sub">Cobertura recomendada</span>
             <div class="ij-plan-price">120 USDT/mes</div>
           </div>
           <div class="ij-plan-card" onclick="ijSelectPlan(this,'1M')">
-            <b>1M</b><span>Cobertura amplia</span>
+            <b>1M</b><span data-i18n="ij.plan1mSub">Cobertura amplia</span>
             <div class="ij-plan-price">240 USDT/mes</div>
           </div>
         </div>
+        <div class="ij-section-label" data-i18n="ij.yourDetails">Tus datos</div>
+        <div class="ij-field"><label data-i18n="ij.fullName">Nombre completo</label><input type="text" id="ij-insured-name" placeholder="Tu nombre" data-i18n-placeholder="ij.fullNamePh" value="Camila Fuentes Rojas"></div>
+        <div class="ij-field"><label data-i18n="ij.birthDate">Fecha de nacimiento</label><input type="date" id="ij-insured-birth" value="1990-04-12"></div>
+        <div class="ij-field ij-field-rut" id="ij-insured-rut-field">
+          <label data-i18n="ij.rutLabel">RUT</label>
+          <input type="text" id="ij-insured-rut" placeholder="12345678-5" data-i18n-placeholder="ij.rutPh" value="12345678-5" oninput="ijValidateRutField('ij-insured-rut-field','ij-insured-rut')" onblur="ijValidateRutField('ij-insured-rut-field','ij-insured-rut')">
+          <span class="ij-rut-status ij-rut-status-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 13 4 4L19 7"/></svg></span>
+          <span class="ij-rut-status ij-rut-status-bad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+          <div class="ij-field-error" data-i18n="ij.rutInvalid">RUT inválido. Verifica el dígito verificador.</div>
+        </div>
         <div class="ij-btn-row">
-          <button class="ij-btn-primary" onclick="ijGoStep(2)">Continuar →</button>
+          <button class="ij-btn-primary" onclick="ijGoStep(2)" data-i18n="ij.continue">Continuar →</button>
         </div>
       </div>
 
       <div class="ij-card hidden" id="ij-step-2">
-        <h2>Tus datos</h2>
-        <p class="ij-sub">Paso 2 de 3 — solo lo esencial.</p>
-        <div class="ij-field" data-i18n-label="ij.fullName"><label data-i18n="ij.fullName">Nombre completo</label><input type="text" placeholder="Tu nombre" data-i18n-placeholder="ij.fullNamePh"></div>
-        <div class="ij-field"><label data-i18n="ij.birthDate">Fecha de nacimiento</label><input type="date"></div>
+        <h2 data-i18n="ij.benTitle">Beneficiarios</h2>
+        <p class="ij-sub"><span data-i18n="ij.stepOf">Paso</span> 2 <span data-i18n="ij.stepOfMid">de</span> 5 — <span data-i18n="ij.benSub">a quién se le pagará la cobertura.</span></p>
+        <div id="ij-ben-list"></div>
+        <button class="ij-add-ben-btn" onclick="ijAddBeneficiary()" data-i18n="ij.addBeneficiary">+ Agregar beneficiario</button>
+        <div class="ij-ben-total-row" id="ij-ben-total-row">
+          <span data-i18n="ij.totalAssigned">Total asignado</span>
+          <span id="ij-ben-total-value">100%</span>
+        </div>
+        <div class="ij-ben-total-note" data-i18n="ij.totalAssignedNote">La suma de los porcentajes debe ser exactamente 100% para continuar.</div>
+        <div class="ij-btn-row">
+          <button class="ij-btn-ghost" onclick="ijGoStep(1)" data-i18n="ij.back">← Atrás</button>
+          <button class="ij-btn-primary" id="ij-ben-continue-btn" onclick="ijGoStep(3)" data-i18n="ij.continue">Continuar →</button>
+        </div>
+      </div>
+
+      <div class="ij-card hidden" id="ij-step-3">
+        <h2 data-i18n="ij.dpsTitle">Declaración de salud</h2>
+        <p class="ij-sub"><span data-i18n="ij.stepOf">Paso</span> 3 <span data-i18n="ij.stepOfMid">de</span> 5 — <span data-i18n="ij.dpsSub">DPS, Declaración Personal de Salud.</span></p>
+        <div class="ij-subnote" data-i18n="ij.dpsNote">Esta es una declaración de salud estándar utilizada para suscribir tu póliza. Responde con sinceridad; no reemplaza un examen médico.</div>
+        <div class="ij-dps-q">
+          <p data-i18n="ij.dpsQ1">¿Ha sido diagnosticado con alguna enfermedad crónica?</p>
+          <div class="ij-dps-toggle" data-q="1">
+            <button onclick="ijSetDps(1,true,this)" data-i18n="ij.yes">Sí</button>
+            <button class="active" onclick="ijSetDps(1,false,this)" data-i18n="ij.no">No</button>
+          </div>
+        </div>
+        <div class="ij-dps-q">
+          <p data-i18n="ij.dpsQ2">¿Fuma o ha fumado en el último año?</p>
+          <div class="ij-dps-toggle" data-q="2">
+            <button onclick="ijSetDps(2,true,this)" data-i18n="ij.yes">Sí</button>
+            <button class="active" onclick="ijSetDps(2,false,this)" data-i18n="ij.no">No</button>
+          </div>
+        </div>
+        <div class="ij-dps-q">
+          <p data-i18n="ij.dpsQ3">¿Ha sido hospitalizado en los últimos 5 años?</p>
+          <div class="ij-dps-toggle" data-q="3">
+            <button onclick="ijSetDps(3,true,this)" data-i18n="ij.yes">Sí</button>
+            <button class="active" onclick="ijSetDps(3,false,this)" data-i18n="ij.no">No</button>
+          </div>
+        </div>
+        <div class="ij-dps-q">
+          <p data-i18n="ij.dpsQ4">¿Tiene antecedentes familiares de enfermedades cardíacas o cáncer?</p>
+          <div class="ij-dps-toggle" data-q="4">
+            <button onclick="ijSetDps(4,true,this)" data-i18n="ij.yes">Sí</button>
+            <button class="active" onclick="ijSetDps(4,false,this)" data-i18n="ij.no">No</button>
+          </div>
+        </div>
+        <div class="ij-dps-q">
+          <p data-i18n="ij.dpsQ5">¿Practica algún deporte de alto riesgo?</p>
+          <div class="ij-dps-toggle" data-q="5">
+            <button onclick="ijSetDps(5,true,this)" data-i18n="ij.yes">Sí</button>
+            <button class="active" onclick="ijSetDps(5,false,this)" data-i18n="ij.no">No</button>
+          </div>
+        </div>
+        <div class="ij-dps-declare">
+          <input type="checkbox" id="ij-dps-declare" checked>
+          <label for="ij-dps-declare" data-i18n="ij.dpsDeclare">Declaro que las respuestas anteriores son verdaderas y completas.</label>
+        </div>
+        <div class="ij-btn-row">
+          <button class="ij-btn-ghost" onclick="ijGoStep(2)" data-i18n="ij.back">← Atrás</button>
+          <button class="ij-btn-primary" onclick="ijGoStep(4)" data-i18n="ij.continue">Continuar →</button>
+        </div>
+      </div>
+
+      <div class="ij-card hidden" id="ij-step-4">
+        <h2 id="ij-wallet-step-title" data-i18n="ij.walletTitle">Conecta tu wallet</h2>
+        <p class="ij-sub"><span data-i18n="ij.stepOf">Paso</span> 4 <span data-i18n="ij.stepOfMid">de</span> 5 — <span id="ij-wallet-step-sub" data-i18n="ij.walletSub">para firmar y recibir tu póliza on-chain.</span></p>
         <div class="ij-field">
           <label data-i18n="ij.walletLabel">Wallet</label>
           <div class="ij-wallet-slot" id="ij-wallet-slot">
@@ -2222,24 +2415,27 @@ table.adm-table td.mono{color:#5A4E7A;}
           </div>
         </div>
         <div class="ij-btn-row">
-          <button class="ij-btn-ghost" onclick="ijGoStep(1)">← Atrás</button>
-          <button class="ij-btn-primary" onclick="ijGoStep(3)">Continuar →</button>
+          <button class="ij-btn-ghost" onclick="ijGoStep(3)" data-i18n="ij.back">← Atrás</button>
+          <button class="ij-btn-primary" onclick="ijGoStep(5)" data-i18n="ij.continue">Continuar →</button>
         </div>
       </div>
 
-      <div class="ij-card hidden" id="ij-step-3">
-        <h2>Confirma y listo</h2>
-        <p class="ij-sub">Paso 3 de 3 — tu póliza se emite en blockchain al instante.</p>
-        <div class="inv-summary-row"><span class="l">Cobertura</span><span class="v" id="ij-sum-plan">500K</span></div>
-        <div class="inv-summary-row"><span class="l">Prima mensual</span><span class="v" id="ij-sum-price">120 USDT</span></div>
-        <div class="inv-summary-row"><span class="l">Red</span><span class="v">Polygon</span></div>
+      <div class="ij-card hidden" id="ij-step-5">
+        <h2 data-i18n="ij.confirmTitle">Confirma y listo</h2>
+        <p class="ij-sub"><span data-i18n="ij.stepOf">Paso</span> 5 <span data-i18n="ij.stepOfMid">de</span> 5 — <span data-i18n="ij.confirmSub">tu póliza se emite en blockchain al instante.</span></p>
+        <div class="inv-summary-row"><span class="l" data-i18n="ij.sumCoverage">Cobertura</span><span class="v" id="ij-sum-plan">500K</span></div>
+        <div class="inv-summary-row"><span class="l" data-i18n="ij.sumPremium">Prima mensual</span><span class="v" id="ij-sum-price">120 USDT</span></div>
+        <div class="inv-summary-row"><span class="l" data-i18n="ij.sumNetwork">Red</span><span class="v">Polygon</span></div>
+        <div class="inv-summary-row"><span class="l" data-i18n="ij.sumInsuredRut">RUT asegurado</span><span class="v mono" id="ij-sum-rut">12.345.678-5</span></div>
+        <div id="ij-sum-ben-block"></div>
+        <div class="inv-summary-row"><span class="l" data-i18n="ij.sumDps">Declaración de salud</span><span class="v" id="ij-sum-dps" style="color:var(--good);">✓</span></div>
         <div class="inv-summary-row gas-row">
           <span class="l" data-i18n="gas.label">Gas Fee (red)</span>
           <span class="v gas-value mono" id="ij-gas-value">estimando…</span>
         </div>
         <div class="ij-btn-row">
-          <button class="ij-btn-ghost" onclick="ijGoStep(2)">← Atrás</button>
-          <button class="ij-btn-primary" onclick="ijFinish()">Confirmar y emitir póliza ✓</button>
+          <button class="ij-btn-ghost" onclick="ijGoStep(4)" data-i18n="ij.back">← Atrás</button>
+          <button class="ij-btn-primary" onclick="ijFinish()" data-i18n="ij.finishCta">Confirmar y emitir póliza ✓</button>
         </div>
       </div>
 
@@ -2909,6 +3105,72 @@ table.adm-table td.mono{color:#5A4E7A;}
   </div>
 </div>
 
+<!-- ===================== INSURED: POLICY DETAIL MODAL ===================== -->
+<div id="policy-detail-overlay" class="policy-detail-overlay hidden" onclick="if(event.target===this)closePolicyDetailModal()">
+  <div class="policy-detail-card">
+    <div class="policy-detail-head">
+      <div>
+        <div class="meta-label" data-i18n="ij.pdEyebrow">MI PÓLIZA</div>
+        <h3 id="pd-policy-name">Term Life 500k</h3>
+      </div>
+      <button class="inv-wizard-close" onclick="closePolicyDetailModal()">✕</button>
+    </div>
+    <div class="policy-detail-tagline" data-i18n="ij.pdTagline">Sin letra chica: te mueres, pagamos.</div>
+
+    <div class="policy-detail-body">
+      <div class="pd-promise" id="pd-promise">500,000 USDT a tus beneficiarios, automático, sin trámites.</div>
+
+      <div class="pd-section">
+        <div class="pd-section-title" data-i18n="ij.pdContractorTitle">Contratante</div>
+        <div class="pd-row"><span class="l" data-i18n="ij.pdName">Nombre</span><span class="v" id="pd-insured-name">—</span></div>
+        <div class="pd-row"><span class="l" data-i18n="ij.pdRut">RUT</span><span class="v" id="pd-insured-rut">—</span></div>
+        <div class="pd-row"><span class="l" data-i18n="ij.pdPool">Pool</span><span class="v" id="pd-pool">—</span></div>
+        <div class="pd-row"><span class="l" data-i18n="ij.pdContract">Smart Contract</span><span class="v" id="pd-contract-id">—</span></div>
+        <div class="pd-row"><span class="l" data-i18n="ij.pdCoverage">Cobertura</span><span class="v" id="pd-coverage">—</span></div>
+        <div class="pd-row"><span class="l" data-i18n="ij.pdPremium">Prima</span><span class="v" id="pd-premium">—</span></div>
+      </div>
+
+      <div class="pd-section" id="pd-pool-limit-section">
+        <div class="pd-section-title" data-i18n="ij.pdPoolLimitTitle">Cómo funciona tu pool</div>
+        <div class="pd-exclusion" style="background:rgba(139,92,246,.08);border-color:rgba(139,92,246,.25);">
+          <div class="pd-exclusion-title" style="color:#8B6FE8;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            <span id="pd-pool-limit-title">Pool P32</span>
+          </div>
+          <p id="pd-pool-limit-body">Eres el asegurado 62 de 125 en este pool.</p>
+        </div>
+      </div>
+
+      <div class="pd-section">
+        <div class="pd-section-title" data-i18n="ij.pdBeneficiariesTitle">Beneficiarios</div>
+        <div id="pd-beneficiaries-list"></div>
+      </div>
+
+      <div class="pd-section">
+        <div class="pd-section-title" data-i18n="ij.pdHowTitle">Cómo opera</div>
+        <div class="pd-how-steps">
+          <div class="pd-how-step"><div class="pd-how-num">1</div><p data-i18n="ij.pdHow1">Cuando ocurre el evento, el certificado de defunción se verifica contra la fuente oficial.</p></div>
+          <div class="pd-how-step"><div class="pd-how-num">2</div><p data-i18n="ij.pdHow2">El oráculo confirma el evento y publica el resultado on-chain — sin exponer datos personales.</p></div>
+          <div class="pd-how-step"><div class="pd-how-num">3</div><p data-i18n="ij.pdHow3">El smart contract paga automáticamente a cada beneficiario, según el % asignado. Ninguna persona autoriza el pago manualmente.</p></div>
+        </div>
+      </div>
+
+      <div class="pd-section" style="margin-bottom:0;">
+        <div class="pd-section-title" data-i18n="ij.pdExclusionTitle">Única exclusión</div>
+        <div class="pd-exclusion">
+          <div class="pd-exclusion-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4m0 4h.01M10.3 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.7 3.86a2 2 0 0 0-3.4 0Z"/></svg>
+            <span data-i18n="ij.pdSuicideTitle">Suicidio</span>
+          </div>
+          <p data-i18n="ij.pdSuicideBody">Es la única causa que esta póliza no cubre, sin excepción de plazo. Todo lo demás — enfermedad, accidente, cualquier otra causa — está cubierto.</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="ij-btn-primary pd-close-btn" onclick="closePolicyDetailModal()" data-i18n="ij.pdCloseBtn">Entendido</button>
+  </div>
+</div>
+
 <!-- ===================== INSURED: MANAGE BENEFICIARY MODAL ===================== -->
 <div id="beneficiary-modal-overlay" class="inv-wizard-overlay hidden" onclick="if(event.target===this)closeBeneficiaryModal()">
   <div class="inv-wizard-card">
@@ -3117,19 +3379,75 @@ const I18N = {
     'ij.onePerson': '1 persona',
     'ij.beneficiaryAssigned': 'Beneficiario asignado',
     'ij.newPolicy': 'Contratar otra póliza',
-    'ij.newPolicySub': '3 pasos, menos de 5 minutos',
+    'ij.newPolicySub': '5 pasos, menos de 5 minutos',
     'ij.manageBeneficiary': 'Gestionar beneficiario',
     'ij.manageBeneficiarySub': 'Cambios con firma de tu wallet',
     'ij.cancelPolicy': 'Cancelar póliza',
     'ij.cancelPolicySub': 'Desactiva tu cobertura on-chain',
+    'ij.viewDetail': 'Ver detalle',
+    'ij.viewDetailSub': 'Toda la info de tu póliza, sin letra chica',
+    'ij.pdEyebrow': 'MI PÓLIZA',
+    'ij.pdTagline': 'Sin letra chica: te mueres, pagamos.',
+    'ij.pdPromise': '{coverage} a tus beneficiarios, automático, sin trámites.',
+    'ij.pdContractorTitle': 'Contratante',
+    'ij.pdName': 'Nombre',
+    'ij.pdRut': 'RUT',
+    'ij.pdContract': 'Smart Contract',
+    'ij.pdCoverage': 'Cobertura',
+    'ij.pdPremium': 'Prima',
+    'ij.pdBeneficiariesTitle': 'Beneficiarios',
+    'ij.pdHowTitle': 'Cómo opera',
+    'ij.pdHow1': 'Cuando ocurre el evento, el certificado de defunción se verifica contra la fuente oficial.',
+    'ij.pdHow2': 'El oráculo confirma el evento y publica el resultado on-chain — sin exponer datos personales.',
+    'ij.pdHow3': 'El smart contract paga automáticamente a cada beneficiario, según el % asignado. Ninguna persona autoriza el pago manualmente.',
+    'ij.pdExclusionTitle': 'Única exclusión',
+    'ij.pdSuicideTitle': 'Suicidio',
+    'ij.pdSuicideBody': 'Es la única causa que esta póliza no cubre, sin excepción de plazo. Todo lo demás — enfermedad, accidente, cualquier otra causa — está cubierto.',
+    'ij.pdCloseBtn': 'Entendido',
+    'ij.perMonth': '/mes',
+    'ij.poolPositionNote': 'Pool {pool}: eres el asegurado {position} de {total}.',
+    'ij.pdPool': 'Pool',
+    'ij.pdPoolValue': '{pool} · asegurado {position} de {total}',
+    'ij.pdPoolLimitTitle': 'Cómo funciona tu pool',
+    'ij.pdPoolLimitPool': 'Pool {pool}',
+    'ij.pdPoolLimitBody': 'Eres el asegurado {position} de {total} en este pool. La póliza cubre a un máximo de {maxDeaths} fallecidos del total del pool durante el año de vigencia — si se alcanza ese límite, el pool se cierra antes de tiempo.',
     'ij.policyCancelled': 'Póliza cancelada',
     'ij.claimPaid': 'Reclamo pagado',
     'ij.noPolicies': 'No tienes pólizas activas',
     'ij.noPoliciesSub': 'Contrata tu primera cobertura en menos de 5 minutos.',
-    'ij.step1': 'Cobertura', 'ij.step2': 'Tus datos', 'ij.step3': 'Confirmar',
+    'ij.step1': 'Cobertura', 'ij.step2': 'Beneficiarios', 'ij.step3': 'Salud', 'ij.step4': 'Wallet', 'ij.step5': 'Confirmar',
     'ij.fullName': 'Nombre completo', 'ij.fullNamePh': 'Tu nombre',
     'ij.birthDate': 'Fecha de nacimiento', 'ij.walletLabel': 'Wallet',
     'ij.walletConnectCta': 'Conectar Wallet',
+    'ij.stepOf': 'Paso', 'ij.stepOfMid': 'de', 'ij.back': '← Atrás', 'ij.continue': 'Continuar →',
+    'ij.step1Title': 'Elige tu cobertura', 'ij.step1Sub': 'sin compromiso, puedes cambiarlo después.',
+    'ij.plan250Sub': 'Cobertura básica', 'ij.plan500Sub': 'Cobertura recomendada', 'ij.plan1mSub': 'Cobertura amplia',
+    'ij.yourDetails': 'Tus datos',
+    'ij.rutLabel': 'RUT', 'ij.rutPh': '12345678-5', 'ij.rutInvalid': 'RUT inválido. Verifica el dígito verificador.',
+    'ij.benTitle': 'Beneficiarios', 'ij.benSub': 'a quién se le pagará la cobertura.',
+    'ij.addBeneficiary': '+ Agregar beneficiario',
+    'ij.benName': 'Nombre completo', 'ij.benNamePh': 'Nombre del beneficiario',
+    'ij.benRelationship': 'Relación con el asegurado',
+    'ij.relSpouse': 'Cónyuge', 'ij.relChild': 'Hijo(a)', 'ij.relParent': 'Padre o Madre', 'ij.relOther': 'Otro',
+    'ij.benShare': '% del pago', 'ij.removeBeneficiary': 'Eliminar beneficiario',
+    'ij.totalAssigned': 'Total asignado', 'ij.totalAssignedNote': 'La suma de los porcentajes debe ser exactamente 100% para continuar.',
+    'ij.totalMismatch': 'El total debe sumar 100% (actual: {pct}%).',
+    'ij.dpsTitle': 'Declaración de salud', 'ij.dpsSub': 'DPS, Declaración Personal de Salud.',
+    'ij.dpsNote': 'Esta es una declaración de salud estándar utilizada para suscribir tu póliza. Responde con sinceridad; no reemplaza un examen médico.',
+    'ij.dpsQ1': '¿Ha sido diagnosticado con alguna enfermedad crónica?',
+    'ij.dpsQ2': '¿Fuma o ha fumado en el último año?',
+    'ij.dpsQ3': '¿Ha sido hospitalizado en los últimos 5 años?',
+    'ij.dpsQ4': '¿Tiene antecedentes familiares de enfermedades cardíacas o cáncer?',
+    'ij.dpsQ5': '¿Practica algún deporte de alto riesgo?',
+    'ij.yes': 'Sí', 'ij.no': 'No',
+    'ij.dpsDeclare': 'Declaro que las respuestas anteriores son verdaderas y completas.',
+    'ij.walletTitle': 'Conecta tu wallet', 'ij.walletSub': 'para firmar y recibir tu póliza on-chain.',
+    'ij.walletConfirmTitle': 'Confirma tu wallet', 'ij.walletConfirmSub': 'para firmar y recibir tu póliza on-chain.',
+    'ij.walletChange': '¿No es tu wallet? Cambiar',
+    'ij.confirmTitle': 'Confirma y listo', 'ij.confirmSub': 'tu póliza se emite en blockchain al instante.',
+    'ij.sumCoverage': 'Cobertura', 'ij.sumPremium': 'Prima mensual', 'ij.sumNetwork': 'Red',
+    'ij.sumInsuredRut': 'RUT asegurado', 'ij.sumBeneficiaries': 'Beneficiarios', 'ij.sumDps': 'Declaración de salud',
+    'ij.finishCta': 'Confirmar y emitir póliza ✓',
     'gas.label': 'Gas Fee (red)',
     'inv.step2': 'Monto', 'inv.step3': 'Confirmar',
     'inv.liveBadge': 'EN VIVO',
@@ -3314,19 +3632,75 @@ const I18N = {
     'ij.onePerson': '1 person',
     'ij.beneficiaryAssigned': 'Beneficiary assigned',
     'ij.newPolicy': 'Get another policy',
-    'ij.newPolicySub': '3 steps, under 5 minutes',
+    'ij.newPolicySub': '5 steps, under 5 minutes',
     'ij.manageBeneficiary': 'Manage beneficiary',
     'ij.manageBeneficiarySub': 'Changes require your wallet signature',
     'ij.cancelPolicy': 'Cancel policy',
     'ij.cancelPolicySub': 'Deactivate your on-chain coverage',
+    'ij.viewDetail': 'View detail',
+    'ij.viewDetailSub': 'Everything about your policy, no fine print',
+    'ij.pdEyebrow': 'MY POLICY',
+    'ij.pdTagline': 'No fine print: you pass away, we pay.',
+    'ij.pdPromise': '{coverage} to your beneficiaries, automatic, no paperwork.',
+    'ij.pdContractorTitle': 'Policyholder',
+    'ij.pdName': 'Name',
+    'ij.pdRut': 'National ID',
+    'ij.pdContract': 'Smart Contract',
+    'ij.pdCoverage': 'Coverage',
+    'ij.pdPremium': 'Premium',
+    'ij.pdBeneficiariesTitle': 'Beneficiaries',
+    'ij.pdHowTitle': 'How it works',
+    'ij.pdHow1': 'When the event happens, the death certificate is verified against the official source.',
+    'ij.pdHow2': 'The oracle confirms the event and publishes the result on-chain — without exposing personal data.',
+    'ij.pdHow3': 'The smart contract automatically pays each beneficiary their assigned share. No one authorizes the payout manually.',
+    'ij.pdExclusionTitle': 'Only exclusion',
+    'ij.pdSuicideTitle': 'Suicide',
+    'ij.pdSuicideBody': 'This is the only cause this policy doesn\'t cover, with no time-limit exception. Everything else — illness, accident, any other cause — is covered.',
+    'ij.pdCloseBtn': 'Got it',
+    'ij.perMonth': '/month',
+    'ij.poolPositionNote': 'Pool {pool}: you\'re insured {position} of {total}.',
+    'ij.pdPool': 'Pool',
+    'ij.pdPoolValue': '{pool} · insured {position} of {total}',
+    'ij.pdPoolLimitTitle': 'How your pool works',
+    'ij.pdPoolLimitPool': 'Pool {pool}',
+    'ij.pdPoolLimitBody': 'You\'re insured {position} of {total} in this pool. The policy covers a maximum of {maxDeaths} deaths across the whole pool during the policy year — if that cap is reached, the pool closes early.',
     'ij.policyCancelled': 'Policy cancelled',
     'ij.claimPaid': 'Claim paid',
     'ij.noPolicies': 'You have no active policies',
     'ij.noPoliciesSub': 'Get your first coverage in under 5 minutes.',
-    'ij.step1': 'Coverage', 'ij.step2': 'Your details', 'ij.step3': 'Confirm',
+    'ij.step1': 'Coverage', 'ij.step2': 'Beneficiaries', 'ij.step3': 'Health', 'ij.step4': 'Wallet', 'ij.step5': 'Confirm',
     'ij.fullName': 'Full name', 'ij.fullNamePh': 'Your name',
     'ij.birthDate': 'Date of birth', 'ij.walletLabel': 'Wallet',
     'ij.walletConnectCta': 'Connect Wallet',
+    'ij.stepOf': 'Step', 'ij.stepOfMid': 'of', 'ij.back': '← Back', 'ij.continue': 'Continue →',
+    'ij.step1Title': 'Choose your coverage', 'ij.step1Sub': 'no commitment, you can change it later.',
+    'ij.plan250Sub': 'Basic coverage', 'ij.plan500Sub': 'Recommended coverage', 'ij.plan1mSub': 'Broad coverage',
+    'ij.yourDetails': 'Your details',
+    'ij.rutLabel': 'RUT', 'ij.rutPh': '12345678-5', 'ij.rutInvalid': 'Invalid RUT. Check the verification digit.',
+    'ij.benTitle': 'Beneficiaries', 'ij.benSub': 'who will receive the payout.',
+    'ij.addBeneficiary': '+ Add beneficiary',
+    'ij.benName': 'Full name', 'ij.benNamePh': "Beneficiary's name",
+    'ij.benRelationship': 'Relationship to insured',
+    'ij.relSpouse': 'Spouse', 'ij.relChild': 'Child', 'ij.relParent': 'Parent', 'ij.relOther': 'Other',
+    'ij.benShare': '% of payout', 'ij.removeBeneficiary': 'Remove beneficiary',
+    'ij.totalAssigned': 'Total assigned', 'ij.totalAssignedNote': 'Percentages across beneficiaries must add up to exactly 100% to continue.',
+    'ij.totalMismatch': 'Total must add up to 100% (currently: {pct}%).',
+    'ij.dpsTitle': 'Health declaration', 'ij.dpsSub': 'DPS, Personal Health Declaration.',
+    'ij.dpsNote': 'This is a standard health declaration used to underwrite your policy. Please answer honestly; it does not replace a medical exam.',
+    'ij.dpsQ1': 'Have you been diagnosed with a chronic illness?',
+    'ij.dpsQ2': 'Do you smoke, or have you smoked in the last year?',
+    'ij.dpsQ3': 'Have you been hospitalized in the last 5 years?',
+    'ij.dpsQ4': 'Do you have a family history of heart disease or cancer?',
+    'ij.dpsQ5': 'Do you practice any high-risk sports?',
+    'ij.yes': 'Yes', 'ij.no': 'No',
+    'ij.dpsDeclare': 'I declare the above answers are true and complete.',
+    'ij.walletTitle': 'Connect your wallet', 'ij.walletSub': 'to sign and receive your on-chain policy.',
+    'ij.walletConfirmTitle': 'Confirm your wallet', 'ij.walletConfirmSub': 'to sign and receive your on-chain policy.',
+    'ij.walletChange': 'Not your wallet? Change it',
+    'ij.confirmTitle': 'Confirm and done', 'ij.confirmSub': 'your policy is issued on blockchain instantly.',
+    'ij.sumCoverage': 'Coverage', 'ij.sumPremium': 'Monthly premium', 'ij.sumNetwork': 'Network',
+    'ij.sumInsuredRut': 'Insured RUT', 'ij.sumBeneficiaries': 'Beneficiaries', 'ij.sumDps': 'Health declaration',
+    'ij.finishCta': 'Confirm and issue policy ✓',
     'gas.label': 'Gas Fee (network)',
     'inv.step2': 'Amount', 'inv.step3': 'Confirm',
     'inv.liveBadge': 'LIVE',
@@ -3920,9 +4294,141 @@ function showApp(name) {
 
 // ===== Insured journey wizard =====
 let ijSelectedPlan = { name: '500K', price: '120 USDT' };
+
+// ----- RUT validation (Chilean national ID, modulo-11 check digit) -----
+function ijComputeRutDv(rutBody) {
+  const digits = rutBody.split('').reverse();
+  let sum = 0;
+  let weight = 2;
+  for (let i = 0; i < digits.length; i++) {
+    sum += parseInt(digits[i], 10) * weight;
+    weight = weight === 7 ? 2 : weight + 1;
+  }
+  const mod = 11 - (sum % 11);
+  if (mod === 11) return '0';
+  if (mod === 10) return 'K';
+  return String(mod);
+}
+function ijIsValidRut(raw) {
+  if (!raw) return false;
+  const clean = raw.replace(/\./g, '').replace(/\s/g, '').toUpperCase();
+  const m = clean.match(/^(\d{7,8})-([0-9K])$/);
+  if (!m) return false;
+  const body = m[1];
+  const dv = m[2];
+  return ijComputeRutDv(body) === dv;
+}
+function ijValidateRutField(fieldId, inputId) {
+  const field = document.getElementById(fieldId);
+  const input = document.getElementById(inputId);
+  if (!field || !input) return false;
+  const val = input.value.trim();
+  field.classList.remove('rut-valid', 'rut-invalid');
+  if (!val) return false;
+  const ok = ijIsValidRut(val);
+  field.classList.add(ok ? 'rut-valid' : 'rut-invalid');
+  return ok;
+}
+
+// ----- Beneficiaries -----
+let ijBenId = 1;
+let ijBeneficiaries = [
+  { id: ijBenId++, name: 'Javiera Muñoz Soto', rut: '9876543-3', relationship: 'spouse', share: 100 },
+];
+function ijRelLabel(rel) {
+  const t = I18N[currentLang];
+  return { spouse: t['ij.relSpouse'], child: t['ij.relChild'], parent: t['ij.relParent'], other: t['ij.relOther'] }[rel] || rel;
+}
+function ijRenderBeneficiaries() {
+  const t = I18N[currentLang];
+  const list = document.getElementById('ij-ben-list');
+  if (!list) return;
+  list.innerHTML = ijBeneficiaries.map((b, idx) => `
+    <div class="ij-ben-row" data-ben-id="${b.id}">
+      <div class="ij-ben-row-head">
+        <div class="ij-ben-row-title">${t['ij.benTitle']} ${idx + 1}</div>
+        ${ijBeneficiaries.length > 1 ? `<button class="ij-ben-remove" title="${t['ij.removeBeneficiary']}" onclick="ijRemoveBeneficiary(${b.id})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>` : ''}
+      </div>
+      <div class="ij-ben-grid">
+        <div class="ij-field full">
+          <label>${t['ij.benName']}</label>
+          <input type="text" value="${b.name.replace(/"/g, '&quot;')}" placeholder="${t['ij.benNamePh']}" oninput="ijUpdateBeneficiary(${b.id},'name',this.value)">
+        </div>
+        <div class="ij-field ij-field-rut" id="ij-ben-rut-field-${b.id}">
+          <label>${t['ij.rutLabel']}</label>
+          <input type="text" value="${b.rut}" placeholder="${t['ij.rutPh']}" id="ij-ben-rut-${b.id}"
+            oninput="ijUpdateBeneficiary(${b.id},'rut',this.value); ijValidateRutField('ij-ben-rut-field-${b.id}','ij-ben-rut-${b.id}')"
+            onblur="ijValidateRutField('ij-ben-rut-field-${b.id}','ij-ben-rut-${b.id}')">
+          <span class="ij-rut-status ij-rut-status-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 13 4 4L19 7"/></svg></span>
+          <span class="ij-rut-status ij-rut-status-bad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+          <div class="ij-field-error">${t['ij.rutInvalid']}</div>
+        </div>
+        <div class="ij-field">
+          <label>${t['ij.benRelationship']}</label>
+          <select onchange="ijUpdateBeneficiary(${b.id},'relationship',this.value)">
+            <option value="spouse" ${b.relationship === 'spouse' ? 'selected' : ''}>${t['ij.relSpouse']}</option>
+            <option value="child" ${b.relationship === 'child' ? 'selected' : ''}>${t['ij.relChild']}</option>
+            <option value="parent" ${b.relationship === 'parent' ? 'selected' : ''}>${t['ij.relParent']}</option>
+            <option value="other" ${b.relationship === 'other' ? 'selected' : ''}>${t['ij.relOther']}</option>
+          </select>
+        </div>
+        <div class="ij-field">
+          <label>${t['ij.benShare']}</label>
+          <input type="number" min="0" max="100" value="${b.share}" oninput="ijUpdateBeneficiary(${b.id},'share',this.value)">
+        </div>
+      </div>
+    </div>`).join('');
+  ijBeneficiaries.forEach(b => {
+    if (b.rut) ijValidateRutField(`ij-ben-rut-field-${b.id}`, `ij-ben-rut-${b.id}`);
+  });
+  ijUpdateBenTotal();
+}
+function ijUpdateBeneficiary(id, field, value) {
+  const b = ijBeneficiaries.find(x => x.id === id);
+  if (!b) return;
+  b[field] = field === 'share' ? (parseFloat(value) || 0) : value;
+  if (field === 'share') ijUpdateBenTotal();
+}
+function ijAddBeneficiary() {
+  ijBeneficiaries.push({ id: ijBenId++, name: '', rut: '', relationship: 'other', share: 0 });
+  ijRenderBeneficiaries();
+}
+function ijRemoveBeneficiary(id) {
+  if (ijBeneficiaries.length <= 1) return;
+  ijBeneficiaries = ijBeneficiaries.filter(b => b.id !== id);
+  ijRenderBeneficiaries();
+}
+function ijBenTotalPct() {
+  return ijBeneficiaries.reduce((sum, b) => sum + (parseFloat(b.share) || 0), 0);
+}
+function ijUpdateBenTotal() {
+  const t = I18N[currentLang];
+  const row = document.getElementById('ij-ben-total-row');
+  const val = document.getElementById('ij-ben-total-value');
+  const btn = document.getElementById('ij-ben-continue-btn');
+  if (!row || !val) return;
+  const total = Math.round(ijBenTotalPct() * 100) / 100;
+  val.textContent = total + '%';
+  const ok = total === 100;
+  row.classList.toggle('ok', ok);
+  row.classList.toggle('bad', !ok);
+  if (btn) btn.disabled = !ok;
+  return ok;
+}
+
+// ----- DPS (health declaration) -----
+let ijDpsAnswers = { 1: false, 2: false, 3: false, 4: false, 5: false };
+function ijSetDps(q, value, el) {
+  ijDpsAnswers[q] = value;
+  const group = el.parentElement;
+  group.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
 function ijShowWizard() {
   document.getElementById('ij-home-subview').classList.add('hidden');
   document.getElementById('ij-wizard-subview').classList.remove('hidden');
+  ijRenderBeneficiaries();
   ijGoStep(1);
   if (walletConnected) updateConnectButtons();
 }
@@ -3937,7 +4443,7 @@ function ijSelectPlan(el, name) {
   ijSelectedPlan = { name, price: prices[name] };
 }
 function ijGoStep(n) {
-  [1, 2, 3].forEach(i => {
+  [1, 2, 3, 4, 5].forEach(i => {
     document.getElementById(`ij-step-${i}`).classList.toggle('hidden', i !== n);
     const stepEl = document.getElementById(`ij-dot-${i}`);
     stepEl.classList.toggle('active', i === n);
@@ -3945,9 +4451,21 @@ function ijGoStep(n) {
     const circle = stepEl.querySelector('.ij-stepper-circle');
     circle.innerHTML = (i <= n) ? circle.dataset.icon : i;
   });
-  if (n === 3) {
+  if (n === 2) {
+    ijUpdateBenTotal();
+  }
+  if (n === 5) {
+    const t = I18N[currentLang];
     document.getElementById('ij-sum-plan').textContent = ijSelectedPlan.name;
     document.getElementById('ij-sum-price').textContent = ijSelectedPlan.price;
+    const rutInput = document.getElementById('ij-insured-rut');
+    document.getElementById('ij-sum-rut').textContent = rutInput ? rutInput.value : '';
+    const benBlock = document.getElementById('ij-sum-ben-block');
+    if (benBlock) {
+      benBlock.innerHTML = `<div class="inv-summary-row"><span class="l">${t['ij.sumBeneficiaries']}</span><span class="v"></span></div>` +
+        ijBeneficiaries.map(b => `<div class="ij-sum-ben-line">${b.name || '—'} — <b>${b.share}%</b> (${ijRelLabel(b.relationship)})</div>`).join('');
+    }
+    document.getElementById('ij-sum-dps').textContent = '✓';
     simulateGasFee('ij-gas-value');
   }
 }
@@ -3974,22 +4492,34 @@ function simulateGasFee(elementId) {
 }
 function ijFinish() {
   if (!walletConnected) { requireWalletThen(ijFinish); return; }
-  [1, 2, 3].forEach(i => document.getElementById(`ij-step-${i}`).classList.add('hidden'));
+  if (!ijUpdateBenTotal()) { ijGoStep(2); return; }
+  [1, 2, 3, 4, 5].forEach(i => document.getElementById(`ij-step-${i}`).classList.add('hidden'));
   document.getElementById('ij-step-success').classList.remove('hidden');
   const hex = '0123456789abcdef';
   let contractId = '0x';
   for (let i = 0; i < 4; i++) contractId += hex[Math.floor(Math.random() * 16)];
   contractId += '…';
   for (let i = 0; i < 4; i++) contractId += hex[Math.floor(Math.random() * 16)];
+  const primaryBen = ijBeneficiaries[0];
+  const benSummary = ijBeneficiaries.length > 1
+    ? `${primaryBen ? primaryBen.name : 'Por definir'} +${ijBeneficiaries.length - 1}`
+    : (primaryBen ? primaryBen.name : 'Por definir');
+  const insuredNameEl = document.getElementById('ij-insured-name');
+  const insuredRutEl = document.getElementById('ij-insured-rut');
   ijPolicies.push({
     id: 'p' + (ijPolicies.length + 1),
     name: 'Term Life ' + ijSelectedPlan.name,
     coverage: (ijSelectedPlan.name === '250K' ? '250,000' : ijSelectedPlan.name === '1M' ? '1,000,000' : '500,000') + ' USDT',
-    premium: ijSelectedPlan.price + '/mes',
-    beneficiary: 'Por definir',
+    premium: ijSelectedPlan.price + I18N[currentLang]['ij.perMonth'],
+    beneficiary: benSummary,
     beneficiaryHash: '0x0000…0000',
     contract: contractId,
     status: 'active',
+    insuredName: insuredNameEl ? insuredNameEl.value : '',
+    insuredRut: insuredRutEl ? insuredRutEl.value : '',
+    poolId: 'P32',
+    poolPosition: (typeof INV_POOL_SLOTS_FILLED !== 'undefined' ? INV_POOL_SLOTS_FILLED : 88) + 1,
+    beneficiaries: ijBeneficiaries.map(b => ({ name: b.name, rut: b.rut, relationship: b.relationship, share: b.share })),
   });
   renderIjPolicies();
 }
@@ -4081,6 +4611,29 @@ function admShowTab(name) {
 let walletConnected = false;
 let pendingWalletAction = null;
 
+function ijChangeWallet() {
+  walletConnected = false;
+  const t = I18N[currentLang];
+  document.querySelectorAll('.connect-btn').forEach(btn => {
+    btn.classList.remove('is-connected');
+    btn.setAttribute('data-i18n', 'nav.connect');
+    btn.textContent = t['nav.connect'];
+  });
+  const ijSlot = document.getElementById('ij-wallet-slot');
+  if (ijSlot) {
+    ijSlot.innerHTML = '<button class="ij-wallet-connect-btn" onclick="requireWalletThen(function(){})" data-i18n="ij.walletConnectCta">' + t['ij.walletConnectCta'] + '</button>';
+  }
+  const ijWalletTitle = document.getElementById('ij-wallet-step-title');
+  const ijWalletSub = document.getElementById('ij-wallet-step-sub');
+  if (ijWalletTitle && ijWalletSub) {
+    ijWalletTitle.setAttribute('data-i18n', 'ij.walletTitle');
+    ijWalletTitle.textContent = t['ij.walletTitle'];
+    ijWalletSub.setAttribute('data-i18n', 'ij.walletSub');
+    ijWalletSub.textContent = t['ij.walletSub'];
+  }
+  openWalletModal();
+}
+
 function openWalletModal() {
   if (walletConnected) { toast(currentLang === 'en' ? 'Wallet already connected' : 'Wallet ya conectada'); return; }
   document.getElementById('wallet-modal-overlay').classList.remove('hidden');
@@ -4125,7 +4678,18 @@ function updateConnectButtons() {
   });
   const ijSlot = document.getElementById('ij-wallet-slot');
   if (ijSlot) {
-    ijSlot.innerHTML = '<div class="ij-wallet-connected"><span class="wallet-dot"></span>0x71C4…4f2A</div>';
+    const t = I18N[currentLang];
+    ijSlot.innerHTML = '<div class="ij-wallet-connected"><span class="wallet-dot"></span><span class="wallet-addr">0x71C4…4f2A</span>'
+      + '<button type="button" class="ij-wallet-change-btn" onclick="ijChangeWallet()">' + t['ij.walletChange'] + '</button></div>';
+  }
+  const ijWalletTitle = document.getElementById('ij-wallet-step-title');
+  const ijWalletSub = document.getElementById('ij-wallet-step-sub');
+  if (ijWalletTitle && ijWalletSub) {
+    const t = I18N[currentLang];
+    ijWalletTitle.removeAttribute('data-i18n');
+    ijWalletTitle.textContent = t['ij.walletConfirmTitle'];
+    ijWalletSub.removeAttribute('data-i18n');
+    ijWalletSub.textContent = t['ij.walletConfirmSub'];
   }
   // La wallet conectada actúa como autenticación: revela las vistas de Insured/Investor
   const ijEmpty = document.getElementById('ij-empty-state');
@@ -4138,8 +4702,12 @@ function updateConnectButtons() {
 }
 
 // ===== INSURED: pólizas como estado dinámico, asociadas a la wallet conectada =====
+const IJ_POOL_SIZE = 125;
+const IJ_POOL_MAX_DEATHS = 2;
 let ijPolicies = [
-  { id: 'p1', name: 'Term Life 500k', coverage: '500,000 USDT', premium: '120 USDT/mes', beneficiary: 'María Fernanda Rojas', beneficiaryHash: '0x2c9e…a41f', contract: '0x9A4b…8B4c', status: 'active', simEnabled: true },
+  { id: 'p1', name: 'Term Life 500k', coverage: '500,000 USDT', premium: '120 USDT' + I18N[currentLang]['ij.perMonth'], beneficiary: 'María Fernanda Rojas', beneficiaryHash: '0x2c9e…a41f', contract: '0x9A4b…8B4c', status: 'active', simEnabled: true,
+    insuredName: 'Camila Fuentes Rojas', insuredRut: '12345678-5', poolId: 'P32', poolPosition: 62,
+    beneficiaries: [{ name: 'María Fernanda Rojas', rut: '9876543-3', relationship: 'spouse', share: 100 }] },
 ];
 
 function ijPolicyStatusMeta(status) {
@@ -4161,6 +4729,10 @@ function renderIjPolicies() {
     const meta = ijPolicyStatusMeta(p.status);
     const actionsHtml = p.status === 'active' ? `
         <div class="ij-actions-grid" style="margin-bottom:0;">
+          <div class="ij-action-card" onclick="openPolicyDetailModal('${p.id}')">
+            <div class="ij-action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6m-6 4h6M9 8h1M5 21h14a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1Z"/></svg></div>
+            <div><h4>${t['ij.viewDetail']}</h4><p>${t['ij.viewDetailSub']}</p></div>
+          </div>
           <div class="ij-action-card" onclick="openBeneficiaryModal('${p.id}')">
             <div class="ij-action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/></svg></div>
             <div><h4>${t['ij.manageBeneficiary']}</h4><p>${t['ij.manageBeneficiarySub']}</p></div>
@@ -4187,9 +4759,55 @@ function renderIjPolicies() {
           <div class="ij-policy-stat"><b>${p.premium}</b><span>${t['ij.yourPremium']}</span></div>
           <div class="ij-policy-stat"><b>${t['ij.onePerson']}</b><span>${t['ij.beneficiaryAssigned']}</span></div>
         </div>
+        ${p.poolId ? `
+        <div class="ij-pool-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          <span>${tf(t['ij.poolPositionNote'], { pool: p.poolId, position: p.poolPosition, total: IJ_POOL_SIZE })}</span>
+        </div>` : ''}
         ${actionsHtml}
       </div>`;
   }).join('');
+}
+
+// ===== INSURED: Policy Detail =====
+function openPolicyDetailModal(policyId) {
+  const p = ijPolicies.find(x => x.id === policyId);
+  if (!p) return;
+  const t = I18N[currentLang];
+
+  document.getElementById('pd-policy-name').textContent = p.name;
+  document.getElementById('pd-insured-name').textContent = p.insuredName || '—';
+  document.getElementById('pd-insured-rut').textContent = p.insuredRut || '—';
+  document.getElementById('pd-contract-id').textContent = p.contract;
+  document.getElementById('pd-coverage').textContent = p.coverage;
+  document.getElementById('pd-premium').textContent = p.premium;
+  document.getElementById('pd-promise').textContent = tf(t['ij.pdPromise'], { coverage: p.coverage });
+
+  const poolLimitSection = document.getElementById('pd-pool-limit-section');
+  if (p.poolId) {
+    document.getElementById('pd-pool').textContent = tf(t['ij.pdPoolValue'], { pool: p.poolId, position: p.poolPosition, total: IJ_POOL_SIZE });
+    document.getElementById('pd-pool-limit-title').textContent = tf(t['ij.pdPoolLimitPool'], { pool: p.poolId });
+    document.getElementById('pd-pool-limit-body').textContent = tf(t['ij.pdPoolLimitBody'], { position: p.poolPosition, total: IJ_POOL_SIZE, maxDeaths: IJ_POOL_MAX_DEATHS });
+    poolLimitSection.classList.remove('hidden');
+  } else {
+    poolLimitSection.classList.add('hidden');
+  }
+
+  const beneficiaries = (p.beneficiaries && p.beneficiaries.length) ? p.beneficiaries : [{ name: p.beneficiary, rut: '—', relationship: null, share: 100 }];
+  document.getElementById('pd-beneficiaries-list').innerHTML = beneficiaries.map(b => `
+    <div class="pd-ben-card">
+      <div class="pd-ben-top"><span class="name">${b.name}</span><span class="share">${b.share}%</span></div>
+      <div class="pd-ben-meta">${b.relationship ? ijRelLabel(b.relationship) + ' · ' : ''}${t['ij.pdRut']}: ${b.rut}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('policy-detail-overlay').classList.remove('hidden');
+}
+function closePolicyDetailModal() {
+  document.getElementById('policy-detail-overlay').classList.add('hidden');
+}
+function tf(str, vars) {
+  return str.replace(/\{(\w+)\}/g, (_, k) => (vars[k] !== undefined ? vars[k] : ''));
 }
 
 // ===== INSURED: Manage Beneficiary =====
