@@ -1,0 +1,430 @@
+<title>Kipwi Oracle Sweep</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --ink:#0C0817; --panel:#160F2C; --panel-2:#1F1440; --violet-900:#180B33;
+  --lime:#8FDB1F; --lime-bright:#C4FF4D; --lime-deep:#6FB015;
+  --violet:#2E1A5C; --violet-bright:#B6A3E0; --violet-mid:#8B6FE8;
+  --line:rgba(182,163,224,.16); --line-lime:rgba(143,219,31,.28);
+  --text:#F5F3FA; --text-dim:#A79CC4; --text-faint:#655681;
+  --good:#4DE8C4; --crit:#E28A83; --warn:#F5C453;
+}
+*{box-sizing:border-box;}
+html{font-size:10px;}
+body{margin:0;background:var(--ink);color:var(--text);font-family:'Sora',-apple-system,sans-serif;min-height:100vh;}
+.mono{font-family:'JetBrains Mono',monospace;}
+.shell{max-width:132rem;margin:0 auto;padding:4rem 2.4rem 6rem;}
+
+.head{margin-bottom:3.2rem;}
+.eyebrow{color:var(--lime);font-size:1.28rem;font-family:'Space Grotesk';letter-spacing:.02em;margin-bottom:1.2rem;}
+.head h1{font-family:'Space Grotesk';font-size:3rem;font-weight:700;margin:0 0 1.2rem;letter-spacing:-.01em;}
+.head p{color:var(--text-dim);font-size:1.32rem;max-width:76rem;line-height:1.6;margin:0;}
+
+.main-grid{display:grid;grid-template-columns:1fr 38rem;gap:2.4rem;align-items:start;}
+@media(max-width:1100px){.main-grid{grid-template-columns:1fr;}}
+
+.panel-card{
+  background:linear-gradient(160deg,var(--panel) 0%,var(--panel-2) 100%);border:1px solid var(--line);
+  border-radius:1.4rem;padding:2.6rem;
+}
+.panel-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2rem;gap:1.6rem;flex-wrap:wrap;}
+.panel-head h2{font-family:'Space Grotesk';font-size:1.8rem;font-weight:700;margin:0 0 .5rem;}
+.panel-head p{color:var(--text-dim);font-size:1.18rem;margin:0;max-width:50rem;line-height:1.5;}
+
+.controls{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;}
+.btn-primary{
+  padding:1.1rem 1.8rem;background:var(--lime);color:#0d2003;border:none;border-radius:.8rem;font-weight:700;
+  font-size:1.22rem;cursor:pointer;font-family:'Space Grotesk';transition:all .15s;
+}
+.btn-primary:hover{background:var(--lime-bright);}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed;}
+.btn-ghost{
+  padding:1.1rem 1.6rem;background:transparent;border:1.5px solid var(--line);color:var(--text-dim);border-radius:.8rem;
+  font-weight:600;font-size:1.22rem;cursor:pointer;font-family:'Space Grotesk';
+}
+.btn-ghost:hover{border-color:var(--line-lime);color:var(--text);}
+
+.status-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:1rem;overflow:hidden;margin:2rem 0;}
+.status-cell{background:var(--panel);padding:1.4rem 1.6rem;}
+.status-cell .l{font-size:.98rem;color:var(--text-faint);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem;}
+.status-cell .v{font-family:'JetBrains Mono';font-size:1.7rem;font-weight:700;}
+.status-cell .v.crit{color:var(--crit);}
+.status-cell .v.lime{color:var(--lime-bright);}
+@media(max-width:700px){.status-strip{grid-template-columns:repeat(2,1fr);}}
+
+/* insured grid with radar sweep */
+.grid-wrap{position:relative;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:1.2rem;padding:2rem;overflow:hidden;}
+.insured-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(7.4rem,1fr));gap:.8rem;position:relative;z-index:1;
+}
+.insured-card{
+  aspect-ratio:1;border-radius:.7rem;border:1.5px solid var(--line);background:var(--panel-2);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;
+  transition:all .3s ease;position:relative;overflow:hidden;
+}
+.insured-card .id{font-family:'JetBrains Mono';font-size:.92rem;color:var(--text-faint);}
+.insured-card .dot{width:.9rem;height:.9rem;border-radius:50%;background:var(--text-faint);opacity:.4;transition:all .3s ease;}
+.insured-card.scanning{border-color:var(--violet-bright);box-shadow:0 0 1.6rem rgba(139,92,246,.4);}
+.insured-card.scanning .dot{background:var(--violet-bright);opacity:1;box-shadow:0 0 .8rem var(--violet-bright);}
+.insured-card.alive{border-color:rgba(77,232,196,.25);}
+.insured-card.alive .dot{background:var(--good);opacity:.7;}
+.insured-card.deceased{border-color:var(--crit);background:rgba(226,138,131,.12);animation:pulse-crit 1s ease 2;}
+.insured-card.deceased .dot{background:var(--crit);opacity:1;box-shadow:0 0 1rem var(--crit);}
+@keyframes pulse-crit{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
+
+.sweep-line{
+  position:absolute;top:0;bottom:0;width:.3rem;
+  background:linear-gradient(180deg,transparent,var(--violet-bright),transparent);
+  box-shadow:0 0 3rem var(--violet-bright);opacity:0;pointer-events:none;z-index:2;
+  transition:left .05s linear;
+}
+.sweep-line.active{opacity:.85;}
+
+.legend{display:flex;gap:2rem;margin-top:1.8rem;flex-wrap:wrap;}
+.legend-item{display:flex;align-items:center;gap:.7rem;font-size:1.12rem;color:var(--text-dim);}
+.legend-dot{width:.9rem;height:.9rem;border-radius:50%;flex-shrink:0;}
+.legend-dot.pending{background:var(--text-faint);opacity:.5;}
+.legend-dot.scanning{background:var(--violet-bright);}
+.legend-dot.alive{background:var(--good);}
+.legend-dot.deceased{background:var(--crit);}
+
+/* feed */
+.feed-panel{
+  background:var(--panel);border:1px solid var(--line);border-radius:1.4rem;padding:0;position:sticky;top:2.4rem;
+  max-height:78rem;display:flex;flex-direction:column;overflow:hidden;
+}
+.feed-head{padding:1.8rem 2rem;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+.feed-head h3{font-family:'Space Grotesk';font-size:1.5rem;font-weight:700;margin:0;display:flex;align-items:center;gap:.7rem;}
+.feed-live-dot{width:.6rem;height:.6rem;border-radius:50%;background:var(--good);box-shadow:0 0 .6rem var(--good);animation:pulse-dot 1.6s infinite;}
+@keyframes pulse-dot{0%,100%{opacity:1;}50%{opacity:.3;}}
+.feed-list{flex:1;overflow-y:auto;padding:1rem 0;}
+.feed-item{padding:1.1rem 2rem;border-bottom:1px solid rgba(255,255,255,.03);font-size:1.05rem;display:flex;gap:1rem;animation:feed-in .3s ease;}
+@keyframes feed-in{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+.feed-icon{width:2.4rem;height:2.4rem;border-radius:.6rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.feed-icon svg{width:13px;height:13px;}
+.feed-icon.scan{background:rgba(139,92,246,.14);color:var(--violet-bright);}
+.feed-icon.clear{background:rgba(77,232,196,.12);color:var(--good);}
+.feed-icon.match{background:rgba(226,138,131,.14);color:var(--crit);}
+.feed-icon.pay{background:rgba(143,219,31,.12);color:var(--lime);}
+.feed-body{flex:1;min-width:0;}
+.feed-title{font-weight:600;margin-bottom:.2rem;}
+.feed-meta{font-family:'JetBrains Mono';font-size:.96rem;color:var(--text-faint);}
+.feed-empty{padding:4rem 2rem;text-align:center;color:var(--text-faint);font-size:1.15rem;}
+
+.payout-banner{
+  margin-top:2rem;background:rgba(226,138,131,.06);border:1px solid rgba(226,138,131,.3);border-radius:1.2rem;
+  padding:2.2rem;opacity:0;transform:translateY(10px);transition:all .4s ease;
+}
+.payout-banner.show{opacity:1;transform:translateY(0);}
+.payout-banner .t{font-family:'Space Grotesk';font-weight:700;font-size:1.32rem;margin-bottom:1.6rem;display:flex;align-items:center;gap:.8rem;}
+.payout-banner .t svg{width:20px;height:20px;color:var(--crit);flex-shrink:0;}
+
+.payout-flow{display:flex;align-items:center;gap:1.2rem;position:relative;margin-bottom:1.8rem;}
+.payout-node{
+  flex-shrink:0;width:9rem;height:9rem;border-radius:1.1rem;background:var(--panel-2);border:1.5px solid var(--line);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;padding:1rem;text-align:center;
+}
+.payout-node.contract{border-color:var(--line-lime);}
+.payout-node svg{width:22px;height:22px;flex-shrink:0;}
+.payout-node.contract svg{color:var(--lime);}
+.payout-node .label{font-size:.98rem;color:var(--text-faint);text-transform:uppercase;letter-spacing:.04em;}
+.payout-node .val{font-family:'JetBrains Mono';font-size:1.05rem;font-weight:700;color:var(--text);word-break:break-all;}
+
+.payout-track{flex:1;min-width:6rem;height:.3rem;background:var(--line);border-radius:1rem;position:relative;overflow:visible;}
+.payout-particle{
+  position:absolute;top:50%;left:0;width:1.3rem;height:1.3rem;border-radius:50%;background:var(--lime-bright);
+  box-shadow:0 0 1.4rem var(--lime-bright);transform:translate(-50%,-50%);opacity:0;
+}
+.payout-particle.fly{animation:payout-fly 1.1s cubic-bezier(.3,0,.2,1) forwards;}
+@keyframes payout-fly{0%{left:0;opacity:1;}90%{opacity:1;}100%{left:100%;opacity:0;}}
+
+.payout-beneficiaries{display:flex;flex-direction:column;gap:.9rem;flex-shrink:0;}
+.payout-node.beneficiary{width:19rem;height:auto;flex-direction:row;text-align:left;justify-content:flex-start;padding:1.2rem 1.4rem;gap:1rem;}
+.payout-node.beneficiary svg{color:var(--violet-bright);}
+.payout-node.beneficiary .meta{flex:1;min-width:0;}
+.payout-node.beneficiary .val{font-size:.98rem;}
+.payout-node.beneficiary .amt{font-family:'JetBrains Mono';font-size:1.2rem;font-weight:700;color:var(--lime-bright);margin-top:.3rem;}
+.payout-node.beneficiary.paid{border-color:var(--lime-deep);background:rgba(143,219,31,.06);}
+
+.payout-receipt{background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:.9rem;padding:1.4rem 1.6rem;font-size:1.12rem;color:var(--text-dim);}
+.payout-receipt .row{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--line);}
+.payout-receipt .row:last-child{border-bottom:none;}
+.payout-receipt .row .v{font-family:'JetBrains Mono';color:var(--text);}
+@media(max-width:700px){
+  .payout-flow{flex-direction:column;align-items:stretch;}
+  .payout-track{width:.3rem;height:3rem;margin:0 auto;}
+}
+
+.info-note{
+  display:flex;gap:1rem;background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.2);border-radius:.9rem;
+  padding:1.4rem 1.6rem;font-size:1.15rem;color:var(--text-dim);line-height:1.55;margin-top:2rem;
+}
+.info-note svg{width:18px;height:18px;flex-shrink:0;color:var(--violet-bright);margin-top:.2rem;}
+
+.back-link{
+  display:inline-flex;align-items:center;gap:.6rem;color:var(--text-dim);text-decoration:none;font-size:1.15rem;
+  font-family:'Space Grotesk';font-weight:600;padding:.7rem 1.1rem;border-radius:.7rem;border:1px solid transparent;
+  margin-bottom:2rem;
+}
+.back-link svg{width:16px;height:16px;flex-shrink:0;}
+.back-link:hover{color:var(--lime);border-color:var(--line-lime);background:rgba(143,219,31,.06);}
+</style>
+
+<div class="shell">
+  <a class="back-link" href="/">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m12 19-7-7 7-7M5 12h14"/></svg>
+    <span>Back to Kipwi</span>
+  </a>
+  <div class="head">
+    <div class="eyebrow">Kipwi · oráculo de verificación</div>
+    <h1>How the proactive death-verification sweep works</h1>
+    <p>Instead of waiting for someone to report a claim, Kipwi's oracle periodically checks every insured's status against an authorized data source. When a match is found, the smart contract executes the payout automatically — no manual claim required.</p>
+  </div>
+
+  <div class="status-strip" id="statusStrip"></div>
+
+  <div class="main-grid">
+    <div>
+      <div class="panel-card">
+        <div class="panel-head">
+          <div>
+            <h2>Insured pool — sweep in progress</h2>
+            <p>Each card is one insured wallet. The sweep checks each one against the verification source, in order.</p>
+          </div>
+          <div class="controls">
+            <button class="btn-primary" id="btnRun" onclick="runSweep()">Run sweep →</button>
+            <button class="btn-ghost" id="btnReset" onclick="resetSweep()">Reset</button>
+          </div>
+        </div>
+
+        <div class="grid-wrap">
+          <div class="sweep-line" id="sweepLine"></div>
+          <div class="insured-grid" id="insuredGrid"></div>
+        </div>
+
+        <div class="legend">
+          <div class="legend-item"><span class="legend-dot pending"></span>Pending</div>
+          <div class="legend-item"><span class="legend-dot scanning"></span>Checking now</div>
+          <div class="legend-item"><span class="legend-dot alive"></span>Active, no match</div>
+          <div class="legend-item"><span class="legend-dot deceased"></span>Death event confirmed</div>
+        </div>
+
+        <div class="payout-banner" id="payoutBanner">
+          <div class="t">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m13 2-8 11h6l-1 9 8-11h-6l1-9Z"/></svg>
+            Automatic payout executed
+          </div>
+          <div class="payout-flow" id="payoutFlow">
+            <div class="payout-node contract">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.8 8 11 4.6-2.2 8-6 8-11V5l-8-3Z"/></svg>
+              <div class="label">Smart contract</div>
+              <div class="val" id="payoutContractId">0x9A4b…8B4c</div>
+            </div>
+            <div class="payout-track" id="payoutTrack"></div>
+            <div class="payout-beneficiaries" id="payoutBeneficiaries"></div>
+          </div>
+          <div class="payout-receipt" id="payoutReceipt"></div>
+        </div>
+
+        <div class="info-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16v-4M12 8h.01"/><circle cx="12" cy="12" r="9"/></svg>
+          <div>This illustrates the mechanism only. Kipwi doesn't scrape any public registry directly — a real deployment requires an authorized institutional data feed (a formal agreement with the civil registry, or a licensed identity-verification provider), with each check scoped to an active policy and the insured's consent on file.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feed-panel">
+      <div class="feed-head">
+        <h3><span class="feed-live-dot"></span>Oracle activity log</h3>
+      </div>
+      <div class="feed-list" id="feedList"><div class="feed-empty">Run a sweep to see oracle activity here.</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const TOTAL_INSURED = 88;
+const DECEASED_INDEX = 63;
+
+function fmt(n){ return n.toLocaleString('en-US'); }
+function shortId(i){
+  const hex = '0123456789abcdef';
+  let s = '0x';
+  let seed = i * 7919;
+  for (let k=0;k<4;k++){ s += hex[(seed >> (k*4)) % 16]; }
+  return s;
+}
+
+let sweepRunning = false;
+let feedSeq = 0;
+
+function buildGrid(){
+  const grid = document.getElementById('insuredGrid');
+  grid.innerHTML = '';
+  for (let i=0;i<TOTAL_INSURED;i++){
+    const card = document.createElement('div');
+    card.className = 'insured-card';
+    card.id = 'card-'+i;
+    card.innerHTML = `<div class="dot"></div><div class="id">${shortId(i)}</div>`;
+    grid.appendChild(card);
+  }
+}
+
+function renderStatusStrip(scanned, matched){
+  document.getElementById('statusStrip').innerHTML = `
+    <div class="status-cell"><div class="l">Total insured</div><div class="v mono">${fmt(TOTAL_INSURED)}</div></div>
+    <div class="status-cell"><div class="l">Checked this sweep</div><div class="v mono lime" id="checkedCount">${fmt(scanned)}</div></div>
+    <div class="status-cell"><div class="l">Death events found</div><div class="v mono ${matched?'crit':''}" id="matchCount">${matched}</div></div>
+    <div class="status-cell"><div class="l">Sweep interval</div><div class="v mono">24h</div></div>
+  `;
+}
+
+function logEvent(type, title, meta){
+  feedSeq++;
+  const list = document.getElementById('feedList');
+  if (feedSeq === 1) list.innerHTML = '';
+  const icons = {
+    scan: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>',
+    clear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 13 4 4L19 7"/></svg>',
+    match: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 9v4m0 4h.01M10.3 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.7 3.86a2 2 0 0 0-3.4 0Z"/></svg>',
+    pay: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m13 2-8 11h6l-1 9 8-11h-6l1-9Z"/></svg>',
+  };
+  const item = document.createElement('div');
+  item.className = 'feed-item';
+  item.innerHTML = `
+    <div class="feed-icon ${type}">${icons[type]}</div>
+    <div class="feed-body">
+      <div class="feed-title">${title}</div>
+      <div class="feed-meta">${meta}</div>
+    </div>`;
+  list.insertBefore(item, list.firstChild);
+}
+
+const BENEFICIARIES = [
+  { name: 'María Fernanda Rojas', wallet: '0x2c9e…a41f', pct: 60 },
+  { name: 'Juan Ignacio Rojas', wallet: '0x8f1d…c203', pct: 40 },
+];
+
+async function runPayoutAnimation(policyHolderId){
+  const total = 500000;
+  document.getElementById('payoutContractId').textContent = '0x9A4b…8B4c';
+
+  const benWrap = document.getElementById('payoutBeneficiaries');
+  benWrap.innerHTML = BENEFICIARIES.map((b,i) => `
+    <div class="payout-node beneficiary" id="ben-node-${i}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+      <div class="meta">
+        <div class="label">${b.pct}% share</div>
+        <div class="val">${b.name}</div>
+        <div class="val mono" style="color:var(--text-faint);">${b.wallet}</div>
+        <div class="amt" id="ben-amt-${i}">pending…</div>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('payoutReceipt').innerHTML = '';
+  document.getElementById('payoutBanner').classList.add('show');
+  await new Promise(r => setTimeout(r, 100));
+
+  for (let i=0;i<BENEFICIARIES.length;i++){
+    const b = BENEFICIARIES[i];
+    const amount = Math.round(total * b.pct / 100);
+    const track = document.getElementById('payoutTrack');
+    const particle = document.createElement('div');
+    particle.className = 'payout-particle fly';
+    track.innerHTML = '';
+    track.appendChild(particle);
+    await new Promise(r => setTimeout(r, 1100));
+    document.getElementById('ben-amt-'+i).textContent = fmt(amount) + ' USDT';
+    document.getElementById('ben-node-'+i).classList.add('paid');
+  }
+
+  const hex = '0123456789abcdef';
+  let txHash = '0x';
+  for (let k=0;k<12;k++) txHash += hex[Math.floor(Math.random()*16)];
+  document.getElementById('payoutReceipt').innerHTML = `
+    <div class="row"><span>Policy</span><span class="v">POL-4F2A (${policyHolderId})</span></div>
+    <div class="row"><span>Total paid</span><span class="v" style="color:var(--lime-bright);">${fmt(total)} USDT</span></div>
+    <div class="row"><span>Beneficiaries</span><span class="v">${BENEFICIARIES.length}</span></div>
+    <div class="row"><span>Transaction</span><span class="v">${txHash}…</span></div>
+  `;
+}
+
+function resetSweep(){
+  sweepRunning = false;
+  feedSeq = 0;
+  document.getElementById('btnRun').disabled = false;
+  document.getElementById('sweepLine').classList.remove('active');
+  document.getElementById('payoutBanner').classList.remove('show');
+  document.getElementById('feedList').innerHTML = '<div class="feed-empty">Run a sweep to see oracle activity here.</div>';
+  buildGrid();
+  renderStatusStrip(0, 0);
+}
+
+async function runSweep(){
+  if (sweepRunning) return;
+  sweepRunning = true;
+  document.getElementById('btnRun').disabled = true;
+  document.getElementById('payoutBanner').classList.remove('show');
+  buildGrid();
+  renderStatusStrip(0, 0);
+  logEvent('scan', 'Sweep started', 'Checking ' + TOTAL_INSURED + ' active policies against verification source');
+
+  const gridWrap = document.querySelector('.grid-wrap');
+  const sweepLine = document.getElementById('sweepLine');
+  sweepLine.classList.add('active');
+
+  const gridEl = document.getElementById('insuredGrid');
+  let matched = 0;
+  let deceasedId = null;
+
+  for (let i=0;i<TOTAL_INSURED;i++){
+    const card = document.getElementById('card-'+i);
+    let cardRect = card.getBoundingClientRect();
+
+    const viewH = window.innerHeight;
+    const margin = viewH * 0.2;
+    if (cardRect.top < margin || cardRect.bottom > viewH - margin) {
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      await new Promise(r => setTimeout(r, 260));
+      cardRect = card.getBoundingClientRect();
+    }
+
+    const wrapRect = gridWrap.getBoundingClientRect();
+    sweepLine.style.left = (cardRect.left - wrapRect.left + cardRect.width/2).toFixed(1) + 'px';
+
+    card.classList.add('scanning');
+    await new Promise(r => setTimeout(r, 55));
+    card.classList.remove('scanning');
+
+    if (i === DECEASED_INDEX){
+      card.classList.add('deceased');
+      matched++;
+      deceasedId = shortId(i);
+      logEvent('match', 'Death event confirmed', shortId(i) + ' · policy POL-4F2A');
+    } else {
+      card.classList.add('alive');
+      if (i % 11 === 0) logEvent('clear', 'No match — policy remains active', shortId(i) + ' checked, ' + (i+1) + '/' + TOTAL_INSURED);
+    }
+    renderStatusStrip(i+1, matched);
+  }
+
+  sweepLine.classList.remove('active');
+  logEvent('clear', 'Sweep complete', (TOTAL_INSURED - matched) + ' active · ' + matched + ' death event confirmed');
+
+  if (deceasedId){
+    await new Promise(r => setTimeout(r, 300));
+    logEvent('pay', 'Smart contract executed payout', '500,000 USDT → 2 beneficiaries · no manual claim filed');
+    const banner = document.getElementById('payoutBanner');
+    banner.classList.add('show');
+    banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    await new Promise(r => setTimeout(r, 400));
+    await runPayoutAnimation(deceasedId);
+  }
+  document.getElementById('btnRun').disabled = false;
+  sweepRunning = false;
+}
+
+buildGrid();
+renderStatusStrip(0, 0);
+</script>
