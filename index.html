@@ -892,6 +892,39 @@ table.adm-table .status-tag.paid{background:rgba(31,168,133,.14);color:#1F8985;}
   .early-stats{justify-content:center;}
 }
 
+/* ===================== CONTACT SECTION ===================== */
+.contact-outer{background:var(--ink);padding:8rem 0;}
+.contact-inner{max-width:72rem;margin:0 auto;padding:0 3.6rem;}
+.contact-head{text-align:center;margin-bottom:4rem;}
+.contact-head .tag{color:var(--lime);}
+.contact-head h2{font-family:'Space Grotesk';font-size:3rem;font-weight:700;color:#fff;margin:1.4rem 0 1.2rem;letter-spacing:-.01em;}
+.contact-head p{font-size:1.32rem;color:var(--text-dim);max-width:56rem;margin:0 auto;line-height:1.6;}
+.contact-form{background:var(--panel);border:1px solid var(--line);border-radius:1.6rem;padding:3.2rem;}
+.contact-row{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem;}
+.contact-field{margin-bottom:1.8rem;}
+.contact-field label{display:block;font-size:1.15rem;color:var(--text-dim);margin-bottom:.7rem;font-weight:600;}
+.contact-field input,.contact-field textarea{
+  width:100%;padding:1.2rem 1.4rem;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:.8rem;
+  color:var(--text);font-size:1.3rem;font-family:'Sora';resize:vertical;
+}
+.contact-field input:focus,.contact-field textarea:focus{outline:none;border-color:var(--line-lime);}
+.contact-submit-btn{
+  width:100%;padding:1.4rem;background:var(--lime);color:#0d2003;border:none;border-radius:.9rem;
+  font-family:'Space Grotesk';font-weight:700;font-size:1.32rem;cursor:pointer;transition:all .15s;
+}
+.contact-submit-btn:hover{filter:brightness(1.05);}
+.contact-submit-btn:disabled{opacity:.6;cursor:wait;}
+.contact-status{margin-top:1.4rem;font-size:1.2rem;text-align:center;min-height:1.6rem;}
+.contact-status.success{color:var(--good);}
+.contact-status.error{color:var(--crit);}
+@media(max-width:700px){
+  .contact-outer{padding:5rem 0;}
+  .contact-inner{padding:0 2rem;}
+  .contact-head h2{font-size:2.3rem;}
+  .contact-form{padding:2.2rem;}
+  .contact-row{grid-template-columns:1fr;}
+}
+
 .how-node-bg{fill:var(--panel-2);stroke:var(--line);stroke-width:1;}
 .how-node-bg.out{stroke:var(--line-lime);}
 .how-node-icon{color:var(--lime);}
@@ -1324,12 +1357,15 @@ table.adm-table .status-tag.paid{background:rgba(31,168,133,.14);color:#1F8985;}
 .inv-wizard-dot.active,.inv-wizard-dot.done{background:var(--lime);}
 
 .inv-pool-preview{
-  background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:1rem;padding:2rem;
-  margin-bottom:1.6rem;position:relative;overflow:hidden;
+  background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:1rem;padding:1.4rem 1.8rem;
+  margin-bottom:1.2rem;
 }
-.inv-preview-big{font-family:'Space Grotesk';font-size:3rem;font-weight:700;color:var(--lime);letter-spacing:-.02em;}
-.inv-slots-bar{width:100%;height:.7rem;border-radius:1rem;background:rgba(255,255,255,.08);overflow:hidden;margin-top:1.4rem;}
-.inv-slots-bar-fill{height:100%;border-radius:1rem;background:linear-gradient(90deg,var(--lime-deep),var(--lime));}
+.inv-preview-big{
+  display:block;font-family:'Space Grotesk';font-size:2.2rem;line-height:1.2;font-weight:700;
+  color:var(--lime);letter-spacing:-.02em;margin-top:.3rem;
+}
+.inv-slots-bar{display:block;width:100%;height:.6rem;border-radius:1rem;background:rgba(255,255,255,.12);overflow:hidden;margin-top:.9rem;}
+.inv-slots-bar-fill{display:block;height:100%;border-radius:1rem;background:linear-gradient(90deg,var(--lime-deep),var(--lime));}
 .inv-risk-tag-row{display:flex;align-items:center;gap:1rem;}
 
 .inv-amount-display{
@@ -1989,6 +2025,38 @@ table.adm-table td.mono{color:#5A4E7A;}
     </div>
   </div>
 
+
+  <div class="contact-outer">
+    <div class="contact-inner">
+      <div class="contact-head">
+        <span class="tag" data-i18n="contact.tag">Contact</span>
+        <h2 data-i18n="contact.title">Contact us for more information</h2>
+        <p data-i18n="contact.sub">Questions about the model, early investing, or the platform? Send us a message and we'll get back to you.</p>
+      </div>
+      <form class="contact-form" id="contactForm" onsubmit="return submitContactForm(event)">
+        <input type="hidden" name="access_key" value="ce012009-31fb-4767-ab56-3bab0821dbca">
+        <input type="hidden" name="subject" value="New message from kipwi.com contact form">
+        <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
+        <div class="contact-row">
+          <div class="contact-field">
+            <label data-i18n="contact.nameLabel">Name</label>
+            <input type="text" name="name" required placeholder="Jane Doe">
+          </div>
+          <div class="contact-field">
+            <label data-i18n="contact.emailLabel">Email</label>
+            <input type="email" name="email" required placeholder="jane@email.com">
+          </div>
+        </div>
+        <div class="contact-field">
+          <label data-i18n="contact.messageLabel">Message</label>
+          <textarea name="message" required rows="5" placeholder="How can we help?"></textarea>
+        </div>
+        <button type="submit" class="contact-submit-btn" id="contactSubmitBtn" data-i18n="contact.submitBtn">Send message →</button>
+        <div class="contact-status" id="contactStatus"></div>
+      </form>
+    </div>
+  </div>
+
   <footer class="home-footer">
     <div class="footer-top">
       <div>
@@ -2421,10 +2489,8 @@ table.adm-table td.mono{color:#5A4E7A;}
 
       <div id="inv-wstep-1" class="modal-step-body">
         <div class="inv-pool-preview">
-          <div class="inv-pool-preview-apy">
-            <div class="meta-label" data-i18n="inv.slotsRemainingLabel">SLOTS REMAINING</div>
-            <div class="inv-preview-big" id="inv-pool-slots-display" style="color:var(--lime);">37<span style="font-size:1.6rem;color:var(--text-faint);"> / 125</span></div>
-          </div>
+          <div class="meta-label" data-i18n="inv.slotsRemainingLabel">SLOTS REMAINING</div>
+          <div class="inv-preview-big" id="inv-pool-slots-display">37 <span style="font-size:1.6rem;color:var(--text-faint);font-weight:600;">/ 125</span></div>
           <div class="inv-slots-bar"><div class="inv-slots-bar-fill" id="inv-pool-slots-bar" style="width:70.4%;"></div></div>
         </div>
         <p style="color:var(--text-dim);font-size:1.2rem;margin-bottom:.6rem;" data-i18n="inv.howMuch">How much do you want to invest?</p>
@@ -2962,6 +3028,17 @@ const I18N = {
     'early.cta': 'Explorar la guía para early investors →',
     'early.download': 'Descargar White Paper',
     'early.wpHint': 'Para abrir el PDF, haz clic derecho sobre el botón de descarga y elige "Abrir enlace en una pestaña nueva".',
+    'contact.tag': 'Contacto',
+    'contact.title': 'Contáctanos para más información',
+    'contact.sub': '¿Preguntas sobre el modelo, la inversión temprana o la plataforma? Envíanos un mensaje y te responderemos.',
+    'contact.nameLabel': 'Nombre',
+    'contact.emailLabel': 'Correo',
+    'contact.messageLabel': 'Mensaje',
+    'contact.submitBtn': 'Enviar mensaje →',
+    'contact.sending': 'Enviando…',
+    'contact.success': 'Mensaje enviado. Te responderemos pronto.',
+    'contact.error': 'No se pudo enviar el mensaje. Intenta de nuevo.',
+    'contact.notConfigured': 'El formulario aún no está configurado.',
     'portal.tag': 'Elige tu viaje', 'portal.title': 'Tres experiencias, una sola verdad on-chain',
     'portal.insuredTitle': 'Soy Asegurado',
     'portal.insuredDesc': 'Contrata tu cobertura en minutos y revisa tu póliza activa sin jerga técnica. Simple, claro, en pocos pasos.',
@@ -3147,6 +3224,17 @@ const I18N = {
     'early.cta': 'Explore the early investor guide →',
     'early.download': 'Download White Paper',
     'early.wpHint': 'To open the PDF, right-click the download button and choose "Open link in new tab".',
+    'contact.tag': 'Contact',
+    'contact.title': 'Contact us for more information',
+    'contact.sub': 'Questions about the model, early investing, or the platform? Send us a message and we\'ll get back to you.',
+    'contact.nameLabel': 'Name',
+    'contact.emailLabel': 'Email',
+    'contact.messageLabel': 'Message',
+    'contact.submitBtn': 'Send message →',
+    'contact.sending': 'Sending…',
+    'contact.success': 'Message sent. We\'ll get back to you soon.',
+    'contact.error': 'Could not send the message. Please try again.',
+    'contact.notConfigured': 'The form isn\'t configured yet.',
     'portal.tag': 'Choose your journey', 'portal.title': 'Three experiences, one on-chain truth',
     'portal.insuredTitle': "I'm Insured",
     'portal.insuredDesc': 'Get covered in minutes and check your active policy without technical jargon. Simple, clear, in a few steps.',
@@ -4179,6 +4267,51 @@ function toast(msg) {
   el.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => el.classList.remove('show'), 2600);
+}
+
+// ===== Contact form: sends via Web3Forms (no backend needed) =====
+async function submitContactForm(e) {
+  e.preventDefault();
+  const form = document.getElementById('contactForm');
+  const btn = document.getElementById('contactSubmitBtn');
+  const status = document.getElementById('contactStatus');
+  const t = I18N[currentLang];
+
+  const accessKey = form.access_key.value;
+  if (!accessKey) {
+    status.textContent = t['contact.notConfigured'];
+    status.className = 'contact-status error';
+    return false;
+  }
+
+  btn.disabled = true;
+  btn.textContent = t['contact.sending'];
+  status.textContent = '';
+  status.className = 'contact-status';
+
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(Object.fromEntries(new FormData(form))),
+    });
+    const data = await res.json();
+    if (data.success) {
+      status.textContent = t['contact.success'];
+      status.className = 'contact-status success';
+      form.reset();
+    } else {
+      status.textContent = t['contact.error'];
+      status.className = 'contact-status error';
+    }
+  } catch (err) {
+    status.textContent = t['contact.error'];
+    status.className = 'contact-status error';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = t['contact.submitBtn'];
+  }
+  return false;
 }
 
 // ===== Diagramas animados "Cómo funciona" — curvas orgánicas con partículas viajeras =====
