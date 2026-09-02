@@ -1538,6 +1538,35 @@ table.adm-table tr:hover td{background:#E9E1FA;}
 .adm-wallet{font-family:'JetBrains Mono';color:#5B3FBD;font-weight:600;font-size:1.05rem;}
 table.adm-table td.mono{color:#5A4E7A;}
 
+.adm-oracle-banner{
+  display:flex;align-items:center;gap:2rem;text-decoration:none;color:inherit;
+  background:linear-gradient(120deg,var(--violet-900) 0%,var(--panel) 55%,var(--panel-2) 100%);
+  border:1px solid var(--line-lime);border-radius:1.4rem;padding:2.2rem 2.6rem;margin-bottom:2.2rem;
+  position:relative;overflow:hidden;transition:border-color .15s;
+}
+.adm-oracle-banner:hover{border-color:var(--lime);}
+.adm-oracle-banner::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 50% 80% at 90% 50%,rgba(196,255,77,.12),transparent 60%);
+}
+.adm-oracle-banner-icon{
+  flex-shrink:0;width:5.6rem;height:5.6rem;border-radius:1.1rem;background:rgba(196,255,77,.1);
+  border:1px solid var(--line-lime);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;
+}
+.adm-oracle-banner-icon svg{width:26px;height:26px;color:var(--lime);}
+.adm-oracle-banner-body{flex:1;min-width:20rem;position:relative;z-index:1;}
+.adm-oracle-banner-tag{font-family:'Space Grotesk';font-size:1.05rem;font-weight:700;color:var(--lime);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.6rem;}
+.adm-oracle-banner-body h3{font-family:'Space Grotesk';font-size:1.6rem;font-weight:700;color:#fff;margin:0 0 .5rem;}
+.adm-oracle-banner-body p{font-size:1.15rem;color:var(--text-dim);margin:0;max-width:56rem;line-height:1.5;}
+.adm-oracle-banner-cta{
+  flex-shrink:0;padding:1.1rem 1.8rem;background:var(--lime);color:#0d2003;border-radius:.8rem;
+  font-family:'Space Grotesk';font-weight:700;font-size:1.2rem;white-space:nowrap;position:relative;z-index:1;
+}
+@media(max-width:800px){
+  .adm-oracle-banner{flex-direction:column;text-align:center;padding:2rem;}
+  .adm-oracle-banner-body p{max-width:100%;}
+}
+
 @media(max-width:1100px){.adm-kpi-row{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:700px){
   .adm-nav{padding:1.4rem 1.6rem;}
@@ -1903,6 +1932,12 @@ table.adm-table td.mono{color:#5A4E7A;}
             </text>
           </g>
         </svg>
+      </div>
+      <div style="margin-top:2.2rem;text-align:center;">
+        <a class="early-btn-outline" href="https://claude.ai/code/artifact/d925b946-f09f-4ff3-9652-cb72785de3cf" target="_blank" rel="noopener" style="display:inline-flex;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <span data-i18n="how.simulateFlow">Simulate this flow →</span>
+        </a>
       </div>
     </div>
 
@@ -2618,6 +2653,17 @@ table.adm-table td.mono{color:#5A4E7A;}
         <div class="adm-kpi"><div class="meta-label">EN MONITOREO</div><b style="color:var(--cyan);">312</b></div>
         <div class="adm-kpi"><div class="meta-label">RECLAMOS PAGADOS (30D)</div><b style="color:var(--lime);">47</b></div>
       </div>
+      <a href="https://claude.ai/code/artifact/d925b946-f09f-4ff3-9652-cb72785de3cf" target="_blank" rel="noopener" class="adm-oracle-banner">
+        <div class="adm-oracle-banner-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        </div>
+        <div class="adm-oracle-banner-body">
+          <div class="adm-oracle-banner-tag">Oracle · live simulation</div>
+          <h3>See the proactive death-verification sweep in action</h3>
+          <p>Watch the oracle scan every insured wallet on a schedule and trigger an automatic payout the moment a match is found — no manual claim required.</p>
+        </div>
+        <div class="adm-oracle-banner-cta">Run simulation →</div>
+      </a>
       <div class="adm-table-wrap">
         <div class="adm-table-head">
           <h3>Contratos de Pólizas por Wallet</h3>
@@ -3014,6 +3060,7 @@ const I18N = {
     'how.contactBen2': 'los beneficiarios',
     'how.openAccount1': 'Abre una cuenta y paga a',
     'how.openAccount2': 'cada beneficiario',
+    'how.simulateFlow': 'Simular este flujo →',
     'protocol.tag': 'Kip Token',
     'protocol.title': 'Conoce el modelo financiero del pool',
     'protocol.sub': 'Composición de la prima, probabilidad actuarial de cierre anticipado, crecimiento del NAV de Kip por ciclo e incentivo de referidos — el modelo completo, interactivo.',
@@ -3210,6 +3257,7 @@ const I18N = {
     'how.contactBen2': 'proactively',
     'how.openAccount1': 'Open account & pay',
     'how.openAccount2': 'each beneficiary',
+    'how.simulateFlow': 'Simulate this flow →',
     'protocol.tag': 'Kip Token',
     'protocol.title': 'Explore the pool\'s financial model',
     'protocol.sub': 'Premium composition, actuarial early-closure probability, Kip NAV growth per cycle, and the referral incentive — the full interactive model.',
